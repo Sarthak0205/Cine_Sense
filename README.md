@@ -431,7 +431,7 @@ docs/recommendations.png
 
 # Author
 
-**Sarthak Deshmukh**
+**Sarthak Chaudhari**
 
 * GitHub: https://github.com/Sarthak0205
 * Project: CineSense
