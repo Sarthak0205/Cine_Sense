@@ -1,0 +1,28 @@
+
+=== TABLE A - AVERAGE VALUES BY WINNING SEED (TOP 150) ===
+Seed            | Avg Semantic | Avg Popularity | Avg Final Score
+-----------------------------------------------------------------
+Death Note      |       0.3338 |         0.0272 |          0.3610
+Code Geass      |       0.3573 |         0.0137 |          0.3710
+Steins;Gate     |       0.3297 |         0.0373 |          0.3670
+
+=== TABLE B - TOP 50 CANDIDATE COUNTS BEFORE RERANKING ===
+Seed            | Count | Percentage
+-----------------------------------
+Death Note      | 30    |     60.0%
+Code Geass      | 14    |     28.0%
+Steins;Gate     | 6     |     12.0%
+
+=== TABLE C - TOP 50 CANDIDATE COUNTS AFTER RERANKING ===
+Seed            | Count | Percentage
+-----------------------------------
+Death Note      | 32    |     64.0%
+Code Geass      | 9     |     18.0%
+Steins;Gate     | 9     |     18.0%
+
+=== TABLE D - SCORE DELTA ===
+Seed            | Avg Final Score    | Avg Retrieval Score | Delta     
+-----------------------------------------------------------------
+Death Note      |             0.3610 |             0.4286 |    -0.0676
+Code Geass      |             0.3710 |             0.4991 |    -0.1281
+Steins;Gate     |             0.3670 |             0.4478 |    -0.0808

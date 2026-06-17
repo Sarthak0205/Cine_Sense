@@ -1,0 +1,440 @@
+scenario,metric,value
+Death Note,recommendation_count,10.0
+Death Note,average_score,0.4882780760526657
+Death Note,minimum_score,0.47053423523902893
+Death Note,maximum_score,0.5276502966880798
+Death Note,unique_franchises,10.0
+Death Note,duplicate_franchise_ratio,0.0
+Death Note,sequel_contamination_rate,0.0
+Death Note,seed_franchise_leakage_rate,0.0
+Death Note,discovery_rate,1.0
+Death Note,dominant_seed_share,1.0
+Death Note,representation_entropy,0.0
+Death Note,retrieval_ms,4.300583000258484
+Death Note,ranking_ms,0.503999999637017
+Death Note,post_processing_ms,4908.065417000216
+Death Note,total_ms,4912.871458999689
+Death Note,representation_share_DN,1.0
+Code Geass,recommendation_count,10.0
+Code Geass,average_score,0.3952949970960617
+Code Geass,minimum_score,0.3739222288131714
+Code Geass,maximum_score,0.43352654576301575
+Code Geass,unique_franchises,10.0
+Code Geass,duplicate_franchise_ratio,0.0
+Code Geass,sequel_contamination_rate,0.0
+Code Geass,seed_franchise_leakage_rate,0.0
+Code Geass,discovery_rate,1.0
+Code Geass,dominant_seed_share,1.0
+Code Geass,representation_entropy,0.0
+Code Geass,retrieval_ms,1.832291000027908
+Code Geass,ranking_ms,0.4860420003751642
+Code Geass,post_processing_ms,3821.1796670002514
+Code Geass,total_ms,3823.499291999724
+Code Geass,representation_share_CG,1.0
+Steins;Gate,recommendation_count,10.0
+Steins;Gate,average_score,0.430180561542511
+Steins;Gate,minimum_score,0.4090462327003479
+Steins;Gate,maximum_score,0.48662328720092773
+Steins;Gate,unique_franchises,10.0
+Steins;Gate,duplicate_franchise_ratio,0.0
+Steins;Gate,sequel_contamination_rate,0.0
+Steins;Gate,seed_franchise_leakage_rate,0.0
+Steins;Gate,discovery_rate,1.0
+Steins;Gate,dominant_seed_share,1.0
+Steins;Gate,representation_entropy,0.0
+Steins;Gate,retrieval_ms,1.8202080000264687
+Steins;Gate,ranking_ms,0.4743330000565038
+Steins;Gate,post_processing_ms,3344.3636249994597
+Steins;Gate,total_ms,3346.6590830003042
+Steins;Gate,representation_share_SG,1.0
+Attack on Titan,recommendation_count,10.0
+Attack on Titan,average_score,0.4506181448698044
+Attack on Titan,minimum_score,0.43597379326820374
+Attack on Titan,maximum_score,0.4906232953071594
+Attack on Titan,unique_franchises,10.0
+Attack on Titan,duplicate_franchise_ratio,0.0
+Attack on Titan,sequel_contamination_rate,0.0
+Attack on Titan,seed_franchise_leakage_rate,0.0
+Attack on Titan,discovery_rate,1.0
+Attack on Titan,dominant_seed_share,1.0
+Attack on Titan,representation_entropy,0.0
+Attack on Titan,retrieval_ms,1.8731250002019806
+Attack on Titan,ranking_ms,0.47324999923148425
+Attack on Titan,post_processing_ms,2944.372167000438
+Attack on Titan,total_ms,2946.71924999966
+Attack on Titan,representation_share_AoT,1.0
+FMAB,recommendation_count,10.0
+FMAB,average_score,0.31692659556865693
+FMAB,minimum_score,0.2860395908355713
+FMAB,maximum_score,0.41097190976142883
+FMAB,unique_franchises,10.0
+FMAB,duplicate_franchise_ratio,0.0
+FMAB,sequel_contamination_rate,0.0
+FMAB,seed_franchise_leakage_rate,0.0
+FMAB,discovery_rate,1.0
+FMAB,dominant_seed_share,1.0
+FMAB,representation_entropy,0.0
+FMAB,retrieval_ms,1.7668340005911887
+FMAB,ranking_ms,0.49020900041796267
+FMAB,post_processing_ms,3666.107834000286
+FMAB,total_ms,3668.365792000259
+FMAB,representation_share_FMAB,1.0
+Hunter x Hunter,recommendation_count,10.0
+Hunter x Hunter,average_score,0.40339159071445463
+Hunter x Hunter,minimum_score,0.38943347334861755
+Hunter x Hunter,maximum_score,0.4219259023666382
+Hunter x Hunter,unique_franchises,10.0
+Hunter x Hunter,duplicate_franchise_ratio,0.0
+Hunter x Hunter,sequel_contamination_rate,0.0
+Hunter x Hunter,seed_franchise_leakage_rate,0.0
+Hunter x Hunter,discovery_rate,1.0
+Hunter x Hunter,dominant_seed_share,1.0
+Hunter x Hunter,representation_entropy,0.0
+Hunter x Hunter,retrieval_ms,1.810249999834923
+Hunter x Hunter,ranking_ms,0.47233399982360424
+Hunter x Hunter,post_processing_ms,3007.977041000231
+Hunter x Hunter,total_ms,3010.260125000059
+Hunter x Hunter,representation_share_HxH,1.0
+One Piece,recommendation_count,10.0
+One Piece,average_score,0.35438894033432006
+One Piece,minimum_score,0.31930139660835266
+One Piece,maximum_score,0.4320681393146515
+One Piece,unique_franchises,10.0
+One Piece,duplicate_franchise_ratio,0.0
+One Piece,sequel_contamination_rate,0.0
+One Piece,seed_franchise_leakage_rate,0.0
+One Piece,discovery_rate,1.0
+One Piece,dominant_seed_share,1.0
+One Piece,representation_entropy,0.0
+One Piece,retrieval_ms,1.801959000658826
+One Piece,ranking_ms,0.4758750001201406
+One Piece,post_processing_ms,3748.0810000006386
+One Piece,total_ms,3750.3601669995987
+One Piece,representation_share_OP,1.0
+Naruto,recommendation_count,10.0
+Naruto,average_score,0.48202418386936186
+Naruto,minimum_score,0.45296239852905273
+Naruto,maximum_score,0.5904920101165771
+Naruto,unique_franchises,10.0
+Naruto,duplicate_franchise_ratio,0.0
+Naruto,sequel_contamination_rate,0.0
+Naruto,seed_franchise_leakage_rate,0.0
+Naruto,discovery_rate,1.0
+Naruto,dominant_seed_share,1.0
+Naruto,representation_entropy,0.0
+Naruto,retrieval_ms,1.8500830001357826
+Naruto,ranking_ms,0.4796249995706603
+Naruto,post_processing_ms,3354.9506250001286
+Naruto,total_ms,3357.2812920001525
+Naruto,representation_share_NAR,1.0
+Monster,recommendation_count,10.0
+Monster,average_score,0.4211445480585098
+Monster,minimum_score,0.3996063470840454
+Monster,maximum_score,0.46172207593917847
+Monster,unique_franchises,10.0
+Monster,duplicate_franchise_ratio,0.0
+Monster,sequel_contamination_rate,0.0
+Monster,seed_franchise_leakage_rate,0.0
+Monster,discovery_rate,1.0
+Monster,dominant_seed_share,1.0
+Monster,representation_entropy,0.0
+Monster,retrieval_ms,1.7812079995565
+Monster,ranking_ms,0.4763750002894085
+Monster,post_processing_ms,1760.200665999946
+Monster,total_ms,1762.4594999997498
+Monster,representation_share_MNS,1.0
+Psycho-Pass,recommendation_count,10.0
+Psycho-Pass,average_score,0.4682018309831619
+Psycho-Pass,minimum_score,0.44597169756889343
+Psycho-Pass,maximum_score,0.53952956199646
+Psycho-Pass,unique_franchises,10.0
+Psycho-Pass,duplicate_franchise_ratio,0.0
+Psycho-Pass,sequel_contamination_rate,0.0
+Psycho-Pass,seed_franchise_leakage_rate,0.0
+Psycho-Pass,discovery_rate,1.0
+Psycho-Pass,dominant_seed_share,1.0
+Psycho-Pass,representation_entropy,0.0
+Psycho-Pass,retrieval_ms,1.824042000407644
+Psycho-Pass,ranking_ms,0.4984999995940598
+Psycho-Pass,post_processing_ms,1815.0467919995208
+Psycho-Pass,total_ms,1817.3705839999457
+Psycho-Pass,representation_share_PP,1.0
+Death Note + Code Geass,recommendation_count,10.0
+Death Note + Code Geass,average_score,0.43055002987384794
+Death Note + Code Geass,minimum_score,0.4107317328453064
+Death Note + Code Geass,maximum_score,0.4545062184333801
+Death Note + Code Geass,unique_franchises,10.0
+Death Note + Code Geass,duplicate_franchise_ratio,0.0
+Death Note + Code Geass,sequel_contamination_rate,0.0
+Death Note + Code Geass,seed_franchise_leakage_rate,0.0
+Death Note + Code Geass,discovery_rate,1.0
+Death Note + Code Geass,dominant_seed_share,1.0
+Death Note + Code Geass,representation_entropy,0.0
+Death Note + Code Geass,retrieval_ms,2.360249999583175
+Death Note + Code Geass,ranking_ms,1.012792000437912
+Death Note + Code Geass,post_processing_ms,1.3552499995057588
+Death Note + Code Geass,total_ms,4.7292919998653815
+Death Note + Code Geass,representation_share_DN,1.0
+Death Note + Code Geass,representation_share_CG,0.0
+Death Note + Steins;Gate,recommendation_count,10.0
+Death Note + Steins;Gate,average_score,0.4374589115381241
+Death Note + Steins;Gate,minimum_score,0.4163873791694641
+Death Note + Steins;Gate,maximum_score,0.47640469670295715
+Death Note + Steins;Gate,unique_franchises,10.0
+Death Note + Steins;Gate,duplicate_franchise_ratio,0.0
+Death Note + Steins;Gate,sequel_contamination_rate,0.0
+Death Note + Steins;Gate,seed_franchise_leakage_rate,0.0
+Death Note + Steins;Gate,discovery_rate,1.0
+Death Note + Steins;Gate,dominant_seed_share,0.8
+Death Note + Steins;Gate,representation_entropy,0.7219280948873623
+Death Note + Steins;Gate,retrieval_ms,2.1353330002966686
+Death Note + Steins;Gate,ranking_ms,1.0064579992103972
+Death Note + Steins;Gate,post_processing_ms,1.3465829997585388
+Death Note + Steins;Gate,total_ms,4.488708999815572
+Death Note + Steins;Gate,representation_share_DN,0.8
+Death Note + Steins;Gate,representation_share_SG,0.2
+AoT + FMAB,recommendation_count,10.0
+AoT + FMAB,average_score,0.3691819220781326
+AoT + FMAB,minimum_score,0.34068918228149414
+AoT + FMAB,maximum_score,0.40701860189437866
+AoT + FMAB,unique_franchises,10.0
+AoT + FMAB,duplicate_franchise_ratio,0.0
+AoT + FMAB,sequel_contamination_rate,0.0
+AoT + FMAB,seed_franchise_leakage_rate,0.0
+AoT + FMAB,discovery_rate,1.0
+AoT + FMAB,dominant_seed_share,1.0
+AoT + FMAB,representation_entropy,0.0
+AoT + FMAB,retrieval_ms,2.243916000224999
+AoT + FMAB,ranking_ms,0.9743749997142004
+AoT + FMAB,post_processing_ms,1.3318339997567819
+AoT + FMAB,total_ms,4.55054200028826
+AoT + FMAB,representation_share_AoT,1.0
+AoT + FMAB,representation_share_FMAB,0.0
+Hunter x Hunter + One Piece,recommendation_count,10.0
+Hunter x Hunter + One Piece,average_score,0.33470778465270995
+Hunter x Hunter + One Piece,minimum_score,0.3189241588115692
+Hunter x Hunter + One Piece,maximum_score,0.38750678300857544
+Hunter x Hunter + One Piece,unique_franchises,10.0
+Hunter x Hunter + One Piece,duplicate_franchise_ratio,0.0
+Hunter x Hunter + One Piece,sequel_contamination_rate,0.0
+Hunter x Hunter + One Piece,seed_franchise_leakage_rate,0.0
+Hunter x Hunter + One Piece,discovery_rate,1.0
+Hunter x Hunter + One Piece,dominant_seed_share,0.8
+Hunter x Hunter + One Piece,representation_entropy,0.7219280948873623
+Hunter x Hunter + One Piece,retrieval_ms,2.192375000049651
+Hunter x Hunter + One Piece,ranking_ms,1.0119170001416933
+Hunter x Hunter + One Piece,post_processing_ms,1.254415999937919
+Hunter x Hunter + One Piece,total_ms,4.4589999997697305
+Hunter x Hunter + One Piece,representation_share_HxH,0.8
+Hunter x Hunter + One Piece,representation_share_OP,0.2
+Monster + Death Note,recommendation_count,10.0
+Monster + Death Note,average_score,0.43850624561309814
+Monster + Death Note,minimum_score,0.4234626293182373
+Monster + Death Note,maximum_score,0.4600743055343628
+Monster + Death Note,unique_franchises,10.0
+Monster + Death Note,duplicate_franchise_ratio,0.0
+Monster + Death Note,sequel_contamination_rate,0.0
+Monster + Death Note,seed_franchise_leakage_rate,0.0
+Monster + Death Note,discovery_rate,1.0
+Monster + Death Note,dominant_seed_share,1.0
+Monster + Death Note,representation_entropy,0.0
+Monster + Death Note,retrieval_ms,2.094708000186074
+Monster + Death Note,ranking_ms,0.9658750004746253
+Monster + Death Note,post_processing_ms,1.2656250000873115
+Monster + Death Note,total_ms,4.326582999965467
+Monster + Death Note,representation_share_MNS,0.0
+Monster + Death Note,representation_share_DN,1.0
+Code Geass + AoT,recommendation_count,10.0
+Code Geass + AoT,average_score,0.4054237574338913
+Code Geass + AoT,minimum_score,0.39425015449523926
+Code Geass + AoT,maximum_score,0.45100080966949463
+Code Geass + AoT,unique_franchises,10.0
+Code Geass + AoT,duplicate_franchise_ratio,0.0
+Code Geass + AoT,sequel_contamination_rate,0.0
+Code Geass + AoT,seed_franchise_leakage_rate,0.0
+Code Geass + AoT,discovery_rate,1.0
+Code Geass + AoT,dominant_seed_share,1.0
+Code Geass + AoT,representation_entropy,0.0
+Code Geass + AoT,retrieval_ms,2.2420420000344166
+Code Geass + AoT,ranking_ms,0.9800420002648025
+Code Geass + AoT,post_processing_ms,1.2939580001329887
+Code Geass + AoT,total_ms,4.516291999607347
+Code Geass + AoT,representation_share_CG,0.0
+Code Geass + AoT,representation_share_AoT,1.0
+Steins;Gate + Psycho-Pass,recommendation_count,10.0
+Steins;Gate + Psycho-Pass,average_score,0.42872436344623566
+Steins;Gate + Psycho-Pass,minimum_score,0.39656832814216614
+Steins;Gate + Psycho-Pass,maximum_score,0.5058760643005371
+Steins;Gate + Psycho-Pass,unique_franchises,10.0
+Steins;Gate + Psycho-Pass,duplicate_franchise_ratio,0.0
+Steins;Gate + Psycho-Pass,sequel_contamination_rate,0.0
+Steins;Gate + Psycho-Pass,seed_franchise_leakage_rate,0.0
+Steins;Gate + Psycho-Pass,discovery_rate,1.0
+Steins;Gate + Psycho-Pass,dominant_seed_share,0.7
+Steins;Gate + Psycho-Pass,representation_entropy,0.8812908992306927
+Steins;Gate + Psycho-Pass,retrieval_ms,2.140042000064568
+Steins;Gate + Psycho-Pass,ranking_ms,0.9605420000298182
+Steins;Gate + Psycho-Pass,post_processing_ms,1.3012500003242167
+Steins;Gate + Psycho-Pass,total_ms,4.402208999636059
+Steins;Gate + Psycho-Pass,representation_share_SG,0.3
+Steins;Gate + Psycho-Pass,representation_share_PP,0.7
+Death Note + Code Geass + Steins;Gate,recommendation_count,10.0
+Death Note + Code Geass + Steins;Gate,average_score,0.4161428391933441
+Death Note + Code Geass + Steins;Gate,minimum_score,0.3987133800983429
+Death Note + Code Geass + Steins;Gate,maximum_score,0.4471740424633026
+Death Note + Code Geass + Steins;Gate,unique_franchises,10.0
+Death Note + Code Geass + Steins;Gate,duplicate_franchise_ratio,0.0
+Death Note + Code Geass + Steins;Gate,sequel_contamination_rate,0.0
+Death Note + Code Geass + Steins;Gate,seed_franchise_leakage_rate,0.0
+Death Note + Code Geass + Steins;Gate,discovery_rate,1.0
+Death Note + Code Geass + Steins;Gate,dominant_seed_share,0.8
+Death Note + Code Geass + Steins;Gate,representation_entropy,0.7219280948873623
+Death Note + Code Geass + Steins;Gate,retrieval_ms,2.207167000051413
+Death Note + Code Geass + Steins;Gate,ranking_ms,0.963083999522496
+Death Note + Code Geass + Steins;Gate,post_processing_ms,1.3397080001595896
+Death Note + Code Geass + Steins;Gate,total_ms,4.510290999860445
+Death Note + Code Geass + Steins;Gate,representation_share_DN,0.8
+Death Note + Code Geass + Steins;Gate,representation_share_CG,0.0
+Death Note + Code Geass + Steins;Gate,representation_share_SG,0.2
+AoT + Death Note + FMAB,recommendation_count,10.0
+AoT + Death Note + FMAB,average_score,0.402739018201828
+AoT + Death Note + FMAB,minimum_score,0.3789060115814209
+AoT + Death Note + FMAB,maximum_score,0.44093242287635803
+AoT + Death Note + FMAB,unique_franchises,10.0
+AoT + Death Note + FMAB,duplicate_franchise_ratio,0.0
+AoT + Death Note + FMAB,sequel_contamination_rate,0.0
+AoT + Death Note + FMAB,seed_franchise_leakage_rate,0.0
+AoT + Death Note + FMAB,discovery_rate,1.0
+AoT + Death Note + FMAB,dominant_seed_share,0.7
+AoT + Death Note + FMAB,representation_entropy,0.8812908992306927
+AoT + Death Note + FMAB,retrieval_ms,2.149291000023368
+AoT + Death Note + FMAB,ranking_ms,0.9578750004948233
+AoT + Death Note + FMAB,post_processing_ms,1.3923329997851397
+AoT + Death Note + FMAB,total_ms,4.499791999478475
+AoT + Death Note + FMAB,representation_share_AoT,0.3
+AoT + Death Note + FMAB,representation_share_DN,0.7
+AoT + Death Note + FMAB,representation_share_FMAB,0.0
+Hunter x Hunter + Code Geass + Steins;Gate,recommendation_count,10.0
+Hunter x Hunter + Code Geass + Steins;Gate,average_score,0.38319731652736666
+Hunter x Hunter + Code Geass + Steins;Gate,minimum_score,0.3603152930736542
+Hunter x Hunter + Code Geass + Steins;Gate,maximum_score,0.4366171061992645
+Hunter x Hunter + Code Geass + Steins;Gate,unique_franchises,10.0
+Hunter x Hunter + Code Geass + Steins;Gate,duplicate_franchise_ratio,0.0
+Hunter x Hunter + Code Geass + Steins;Gate,sequel_contamination_rate,0.0
+Hunter x Hunter + Code Geass + Steins;Gate,seed_franchise_leakage_rate,0.0
+Hunter x Hunter + Code Geass + Steins;Gate,discovery_rate,1.0
+Hunter x Hunter + Code Geass + Steins;Gate,dominant_seed_share,0.6
+Hunter x Hunter + Code Geass + Steins;Gate,representation_entropy,1.295461844238322
+Hunter x Hunter + Code Geass + Steins;Gate,retrieval_ms,2.224625000053493
+Hunter x Hunter + Code Geass + Steins;Gate,ranking_ms,0.9709590003694757
+Hunter x Hunter + Code Geass + Steins;Gate,post_processing_ms,1.2956250002389424
+Hunter x Hunter + Code Geass + Steins;Gate,total_ms,4.491458000302373
+Hunter x Hunter + Code Geass + Steins;Gate,representation_share_HxH,0.3
+Hunter x Hunter + Code Geass + Steins;Gate,representation_share_CG,0.1
+Hunter x Hunter + Code Geass + Steins;Gate,representation_share_SG,0.6
+Monster + Death Note + Steins;Gate,recommendation_count,10.0
+Monster + Death Note + Steins;Gate,average_score,0.4234485119581223
+Monster + Death Note + Steins;Gate,minimum_score,0.40745899081230164
+Monster + Death Note + Steins;Gate,maximum_score,0.44467511773109436
+Monster + Death Note + Steins;Gate,unique_franchises,10.0
+Monster + Death Note + Steins;Gate,duplicate_franchise_ratio,0.0
+Monster + Death Note + Steins;Gate,sequel_contamination_rate,0.0
+Monster + Death Note + Steins;Gate,seed_franchise_leakage_rate,0.0
+Monster + Death Note + Steins;Gate,discovery_rate,1.0
+Monster + Death Note + Steins;Gate,dominant_seed_share,0.8
+Monster + Death Note + Steins;Gate,representation_entropy,0.7219280948873623
+Monster + Death Note + Steins;Gate,retrieval_ms,2.0939579999321722
+Monster + Death Note + Steins;Gate,ranking_ms,0.9621669996704441
+Monster + Death Note + Steins;Gate,post_processing_ms,1.3483750008163042
+Monster + Death Note + Steins;Gate,total_ms,4.404833000080544
+Monster + Death Note + Steins;Gate,representation_share_MNS,0.0
+Monster + Death Note + Steins;Gate,representation_share_DN,0.8
+Monster + Death Note + Steins;Gate,representation_share_SG,0.2
+Mainstream Triple,recommendation_count,10.0
+Mainstream Triple,average_score,0.4041258037090302
+Mainstream Triple,minimum_score,0.3791768550872803
+Mainstream Triple,maximum_score,0.44190093874931335
+Mainstream Triple,unique_franchises,10.0
+Mainstream Triple,duplicate_franchise_ratio,0.0
+Mainstream Triple,sequel_contamination_rate,0.0
+Mainstream Triple,seed_franchise_leakage_rate,0.0
+Mainstream Triple,discovery_rate,1.0
+Mainstream Triple,dominant_seed_share,0.8
+Mainstream Triple,representation_entropy,0.7219280948873623
+Mainstream Triple,retrieval_ms,2.1527499993680976
+Mainstream Triple,ranking_ms,0.9564169995428529
+Mainstream Triple,post_processing_ms,1.3514579995899112
+Mainstream Triple,total_ms,4.46087499949499
+Mainstream Triple,representation_share_DN,0.8
+Mainstream Triple,representation_share_AoT,0.2
+Mainstream Triple,representation_share_FMAB,0.0
+Niche Triple,recommendation_count,10.0
+Niche Triple,average_score,0.4565892845392227
+Niche Triple,minimum_score,0.434859037399292
+Niche Triple,maximum_score,0.5723001956939697
+Niche Triple,unique_franchises,10.0
+Niche Triple,duplicate_franchise_ratio,0.0
+Niche Triple,sequel_contamination_rate,0.0
+Niche Triple,seed_franchise_leakage_rate,0.0
+Niche Triple,discovery_rate,1.0
+Niche Triple,dominant_seed_share,0.9
+Niche Triple,representation_entropy,0.4689955935892812
+Niche Triple,retrieval_ms,2.0920420001857565
+Niche Triple,ranking_ms,1.0035420000349404
+Niche Triple,post_processing_ms,914.5105419993342
+Niche Triple,total_ms,917.6067500002318
+Niche Triple,representation_share_KWB,0.1
+Niche Triple,representation_share_Id5920,0.0
+Niche Triple,representation_share_Id553,0.9
+Mixed Genre Triple,recommendation_count,10.0
+Mixed Genre Triple,average_score,0.39651496708393097
+Mixed Genre Triple,minimum_score,0.38065555691719055
+Mixed Genre Triple,maximum_score,0.42418810725212097
+Mixed Genre Triple,unique_franchises,10.0
+Mixed Genre Triple,duplicate_franchise_ratio,0.0
+Mixed Genre Triple,sequel_contamination_rate,0.0
+Mixed Genre Triple,seed_franchise_leakage_rate,0.0
+Mixed Genre Triple,discovery_rate,1.0
+Mixed Genre Triple,dominant_seed_share,0.5
+Mixed Genre Triple,representation_entropy,1.0
+Mixed Genre Triple,retrieval_ms,2.426709000246774
+Mixed Genre Triple,ranking_ms,1.0348329997214023
+Mixed Genre Triple,post_processing_ms,1.4223329999367706
+Mixed Genre Triple,total_ms,4.884875000243483
+Mixed Genre Triple,representation_share_CG,0.0
+Mixed Genre Triple,representation_share_SG,0.5
+Mixed Genre Triple,representation_share_NAR,0.5
+Unrelated Triple,recommendation_count,10.0
+Unrelated Triple,average_score,0.40317350924015044
+Unrelated Triple,minimum_score,0.3873507082462311
+Unrelated Triple,maximum_score,0.4297071695327759
+Unrelated Triple,unique_franchises,10.0
+Unrelated Triple,duplicate_franchise_ratio,0.0
+Unrelated Triple,sequel_contamination_rate,0.0
+Unrelated Triple,seed_franchise_leakage_rate,0.0
+Unrelated Triple,discovery_rate,1.0
+Unrelated Triple,dominant_seed_share,0.5
+Unrelated Triple,representation_entropy,1.3609640474436813
+Unrelated Triple,retrieval_ms,2.224957999715116
+Unrelated Triple,ranking_ms,1.028665999911027
+Unrelated Triple,post_processing_ms,3180.7155830001648
+Unrelated Triple,total_ms,3183.9695839998967
+Unrelated Triple,representation_share_SG,0.4
+Unrelated Triple,representation_share_Id5680,0.5
+Unrelated Triple,representation_share_Id32379,0.1
+Death Note (Similar Mode),recommendation_count,10.0
+Death Note (Similar Mode),average_score,0.4977958619594574
+Death Note (Similar Mode),minimum_score,0.47965243458747864
+Death Note (Similar Mode),maximum_score,0.5282148718833923
+Death Note (Similar Mode),unique_franchises,8.0
+Death Note (Similar Mode),duplicate_franchise_ratio,0.2
+Death Note (Similar Mode),sequel_contamination_rate,0.4
+Death Note (Similar Mode),seed_franchise_leakage_rate,0.1
+Death Note (Similar Mode),discovery_rate,0.9
+Death Note (Similar Mode),dominant_seed_share,1.0
+Death Note (Similar Mode),representation_entropy,0.0
+Death Note (Similar Mode),retrieval_ms,1.3514169995687553
+Death Note (Similar Mode),ranking_ms,0.4533750006885384
+Death Note (Similar Mode),post_processing_ms,0.052999999752501026
+Death Note (Similar Mode),total_ms,1.8588330003694864
+Death Note (Similar Mode),representation_share_DN,1.0

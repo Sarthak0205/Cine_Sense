@@ -1,0 +1,61 @@
+{
+  "eligible_eval_users": 188240,
+  "fit_seconds": 59.764058792000014,
+  "reports": [
+    {
+      "average_recommendation_latency_ms": 5.301393212499988,
+      "evaluated_users": 10000,
+      "memory_delta_gb": -0.1476593017578125,
+      "memory_gb": 6.5497894287109375,
+      "metrics": {
+        "hit_rate@10": 0.4866,
+        "map@10": 0.039899354749307135,
+        "ndcg@10": 0.09493578159596831,
+        "precision@10": 0.07443,
+        "recall@10": 0.06218733969002799,
+        "recall@20": 0.09923781751764564
+      },
+      "peak_memory_delta_gb": 0.0,
+      "peak_memory_gb": 6.9964599609375,
+      "run_size": "10000",
+      "total_runtime_seconds": 53.01393212499988
+    },
+    {
+      "average_recommendation_latency_ms": 5.139984734179998,
+      "evaluated_users": 50000,
+      "memory_delta_gb": -1.3775634765625,
+      "memory_gb": 5.176788330078125,
+      "metrics": {
+        "hit_rate@10": 0.5044,
+        "map@10": 0.04481748297115142,
+        "ndcg@10": 0.10671566007736905,
+        "precision@10": 0.07687200000000001,
+        "recall@10": 0.06984147777234286,
+        "recall@20": 0.1090990037978244
+      },
+      "peak_memory_delta_gb": 0.0,
+      "peak_memory_gb": 6.9964599609375,
+      "run_size": "50000",
+      "total_runtime_seconds": 256.9992367089999
+    },
+    {
+      "average_recommendation_latency_ms": 5.347485954101151,
+      "evaluated_users": 188240,
+      "memory_delta_gb": -0.4616546630859375,
+      "memory_gb": 4.7154388427734375,
+      "metrics": {
+        "hit_rate@10": 0.5520824479388016,
+        "map@10": 0.049983880752594995,
+        "ndcg@10": 0.11868308292094189,
+        "precision@10": 0.0884126646833829,
+        "recall@10": 0.07507082933361249,
+        "recall@20": 0.11775063576779166
+      },
+      "peak_memory_delta_gb": 0.0,
+      "peak_memory_gb": 6.9964599609375,
+      "run_size": "all",
+      "total_runtime_seconds": 1006.6107560000005
+    }
+  ],
+  "setup_seconds": 83.97508108300008
+}

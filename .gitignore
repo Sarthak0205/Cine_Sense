@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual environments
+venv/
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# Mac
+.DS_Store
+
+# Testing
+.pytest_cache/
+.coverage
+
+# Model artifacts
+*.npz
+*.joblib
+*.pkl
+
+# Logs
+*.log
+
+# Large datasets
+archive-2/
+data/
+datasets/
+
+# Build artifacts
+dist/
+build/

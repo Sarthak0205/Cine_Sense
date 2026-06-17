@@ -1,0 +1,735 @@
+[
+  {
+    "seed": "Death Note",
+    "anime_id": 1535,
+    "good_recommendations": [
+      "Monster",
+      "Psycho-Pass",
+      "Code Geass: Lelouch of the Rebellion",
+      "Erased",
+      "Parasyte -the maxim-",
+      "Shinsekai yori"
+    ],
+    "acceptable_recommendations": [
+      "Steins;Gate",
+      "Neon Genesis Evangelion",
+      "Mirai Nikki"
+    ],
+    "bad_recommendations": [
+      "K-On!",
+      "lucky☆star",
+      "Love Live! School Idol Project"
+    ]
+  },
+  {
+    "seed": "Code Geass: Lelouch of the Rebellion",
+    "anime_id": 1575,
+    "good_recommendations": [
+      "Death Note",
+      "Neon Genesis Evangelion",
+      "Guilty Crown",
+      "Mobile Suit Gundam 00",
+      "Fullmetal Alchemist: Brotherhood"
+    ],
+    "acceptable_recommendations": [
+      "Attack on Titan",
+      "Psycho-Pass",
+      "Fate/Zero"
+    ],
+    "bad_recommendations": [
+      "K-On!",
+      "lucky☆star",
+      "Haikyu!!"
+    ]
+  },
+  {
+    "seed": "Steins;Gate",
+    "anime_id": 9253,
+    "good_recommendations": [
+      "Erased",
+      "Re:Zero - Starting Life in Another World",
+      "Psycho-Pass",
+      "From the New World",
+      "Puella Magi Madoka Magica",
+      "Serial Experiments Lain"
+    ],
+    "acceptable_recommendations": [
+      "Death Note",
+      "Code Geass: Lelouch of the Rebellion",
+      "Neon Genesis Evangelion"
+    ],
+    "bad_recommendations": [
+      "K-On!",
+      "lucky☆star",
+      "One Piece"
+    ]
+  },
+  {
+    "seed": "Attack on Titan",
+    "anime_id": 16498,
+    "good_recommendations": [
+      "Kabaneri of the Iron Fortress",
+      "Seraph of the End: Vampire Reign",
+      "Fullmetal Alchemist: Brotherhood",
+      "Hunter x Hunter",
+      "Vinland Saga"
+    ],
+    "acceptable_recommendations": [
+      "Death Note",
+      "Code Geass: Lelouch of the Rebellion",
+      "Parasyte -the maxim-"
+    ],
+    "bad_recommendations": [
+      "K-On!",
+      "Clannad",
+      "Toradora!"
+    ]
+  },
+  {
+    "seed": "Fullmetal Alchemist: Brotherhood",
+    "anime_id": 5114,
+    "good_recommendations": [
+      "Hunter x Hunter",
+      "Attack on Titan",
+      "Fate/Zero",
+      "My Hero Academia",
+      "Magi: The Labyrinth of Magic"
+    ],
+    "acceptable_recommendations": [
+      "One Piece",
+      "Naruto",
+      "Bleach"
+    ],
+    "bad_recommendations": [
+      "Serial Experiments Lain",
+      "Ergo Proxy",
+      "K-On!"
+    ]
+  },
+  {
+    "seed": "Hunter x Hunter",
+    "anime_id": 11061,
+    "good_recommendations": [
+      "Fullmetal Alchemist: Brotherhood",
+      "Yu Yu Hakusho",
+      "Naruto",
+      "One Piece",
+      "My Hero Academia"
+    ],
+    "acceptable_recommendations": [
+      "Bleach",
+      "Attack on Titan",
+      "Mob Psycho 100"
+    ],
+    "bad_recommendations": [
+      "Clannad",
+      "K-On!",
+      "lucky☆star"
+    ]
+  },
+  {
+    "seed": "One Piece",
+    "anime_id": 21,
+    "good_recommendations": [
+      "Hunter x Hunter",
+      "Naruto",
+      "Bleach",
+      "Fairy Tail",
+      "Dragon Ball Z"
+    ],
+    "acceptable_recommendations": [
+      "Fullmetal Alchemist: Brotherhood",
+      "Gintama",
+      "Magi: The Labyrinth of Magic"
+    ],
+    "bad_recommendations": [
+      "Monster",
+      "Serial Experiments Lain",
+      "Ergo Proxy"
+    ]
+  },
+  {
+    "seed": "Naruto",
+    "anime_id": 20,
+    "good_recommendations": [
+      "Bleach",
+      "One Piece",
+      "Hunter x Hunter",
+      "My Hero Academia",
+      "Dragon Ball Z",
+      "Fairy Tail"
+    ],
+    "acceptable_recommendations": [
+      "Fullmetal Alchemist: Brotherhood",
+      "Black Clover"
+    ],
+    "bad_recommendations": [
+      "Serial Experiments Lain",
+      "Monster",
+      "mushi-shi"
+    ]
+  },
+  {
+    "seed": "Bleach",
+    "anime_id": 269,
+    "good_recommendations": [
+      "Naruto",
+      "One Piece",
+      "Hunter x Hunter",
+      "D.Gray-man",
+      "Soul Eater",
+      "Blue Exorcist"
+    ],
+    "acceptable_recommendations": [
+      "Fullmetal Alchemist: Brotherhood",
+      "Black Clover"
+    ],
+    "bad_recommendations": [
+      "K-On!",
+      "Clannad",
+      "Barakamon"
+    ]
+  },
+  {
+    "seed": "Monster",
+    "anime_id": 19,
+    "good_recommendations": [
+      "Death Note",
+      "Psycho-Pass",
+      "Erased",
+      "from the new world",
+      "Serial Experiments Lain",
+      "ergo proxy",
+      "Parasyte -the maxim-"
+    ],
+    "acceptable_recommendations": [
+      "Steins;Gate",
+      "Neon Genesis Evangelion"
+    ],
+    "bad_recommendations": [
+      "K-On!",
+      "lucky☆star",
+      "Love Live! School Idol Project"
+    ]
+  },
+  {
+    "seed": "Berserk",
+    "anime_id": 32379,
+    "good_recommendations": [
+      "Claymore",
+      "Vinland Saga",
+      "Devilman Crybaby",
+      "Hellsing Ultimate",
+      "Fate/Zero",
+      "Black Lagoon"
+    ],
+    "acceptable_recommendations": [
+      "Attack on Titan",
+      "Monster"
+    ],
+    "bad_recommendations": [
+      "K-On!",
+      "lucky☆star",
+      "Love Live! School Idol Project"
+    ]
+  },
+  {
+    "seed": "K-On!",
+    "anime_id": 5680,
+    "good_recommendations": [
+      "Love Live! School Idol Project",
+      "lucky☆star",
+      "Laid-Back Camp",
+      "Non Non Biyori",
+      "Barakamon",
+      "Nichijou"
+    ],
+    "acceptable_recommendations": [
+      "Clannad",
+      "Toradora!",
+      "anohana: the flower we saw that day"
+    ],
+    "bad_recommendations": [
+      "Death Note",
+      "Monster",
+      "Black Lagoon"
+    ]
+  },
+  {
+    "seed": "Neon Genesis Evangelion",
+    "anime_id": 30,
+    "good_recommendations": [
+      "Serial Experiments Lain",
+      "ergo proxy",
+      "Code Geass: Lelouch of the Rebellion",
+      "FLCL",
+      "RahXephon",
+      "Gunbuster"
+    ],
+    "acceptable_recommendations": [
+      "Steins;Gate",
+      "Psycho-Pass",
+      "Death Note"
+    ],
+    "bad_recommendations": [
+      "K-On!",
+      "lucky☆star",
+      "Love Live! School Idol Project"
+    ]
+  },
+  {
+    "seed": "Cowboy Bebop",
+    "anime_id": 1,
+    "good_recommendations": [
+      "Trigun",
+      "Samurai Champloo",
+      "Outlaw Star",
+      "Black Lagoon",
+      "Neon Genesis Evangelion"
+    ],
+    "acceptable_recommendations": [
+      "Psycho-Pass",
+      "Gintama"
+    ],
+    "bad_recommendations": [
+      "K-On!",
+      "lucky☆star",
+      "Love Live! School Idol Project"
+    ]
+  },
+  {
+    "seed": "Psycho-Pass",
+    "anime_id": 13601,
+    "good_recommendations": [
+      "Ghost in the Shell: Stand Alone Complex",
+      "Monster",
+      "Death Note",
+      "ergo proxy",
+      "from the new world",
+      "Parasyte -the maxim-"
+    ],
+    "acceptable_recommendations": [
+      "Steins;Gate",
+      "Code Geass: Lelouch of the Rebellion",
+      "Neon Genesis Evangelion"
+    ],
+    "bad_recommendations": [
+      "K-On!",
+      "lucky☆star",
+      "Love Live! School Idol Project"
+    ]
+  },
+  {
+    "seed": "Fate/Zero",
+    "anime_id": 10087,
+    "good_recommendations": [
+      "Fate/stay night: Unlimited Blade Works",
+      "The Garden of Sinners",
+      "Attack on Titan",
+      "Fullmetal Alchemist: Brotherhood",
+      "Code Geass: Lelouch of the Rebellion"
+    ],
+    "acceptable_recommendations": [
+      "Hunter x Hunter",
+      "Psycho-Pass"
+    ],
+    "bad_recommendations": [
+      "K-On!",
+      "lucky☆star",
+      "Love Live! School Idol Project"
+    ]
+  },
+  {
+    "seed": "Haikyu!!",
+    "anime_id": 20583,
+    "good_recommendations": [
+      "Kuroko's Basketball",
+      "Ace of Diamond",
+      "Free!",
+      "Slam Dunk",
+      "Yowamushi Pedal",
+      "Run with the Wind"
+    ],
+    "acceptable_recommendations": [
+      "Hunter x Hunter",
+      "My Hero Academia"
+    ],
+    "bad_recommendations": [
+      "Death Note",
+      "Monster",
+      "Serial Experiments Lain"
+    ]
+  },
+  {
+    "seed": "Gintama",
+    "anime_id": 918,
+    "good_recommendations": [
+      "Sket Dance",
+      "Daily Lives of High School Boys",
+      "Grand Blue",
+      "The Disastrous Life of Saiki K.",
+      "Beelzebub"
+    ],
+    "acceptable_recommendations": [
+      "One Piece",
+      "Naruto",
+      "Bleach"
+    ],
+    "bad_recommendations": [
+      "Monster",
+      "ergo proxy",
+      "Serial Experiments Lain"
+    ]
+  },
+  {
+    "seed": "Konosuba",
+    "anime_id": 30831,
+    "good_recommendations": [
+      "No Game No Life",
+      "Re:Zero - Starting Life in Another World",
+      "Overlord",
+      "Princess Connect! Re:Dive",
+      "Combatants Will Be Dispatched!"
+    ],
+    "acceptable_recommendations": [
+      "Fate/Zero",
+      "Sword Art Online"
+    ],
+    "bad_recommendations": [
+      "Monster",
+      "ergo proxy",
+      "Serial Experiments Lain"
+    ]
+  },
+  {
+    "seed": "Clannad",
+    "anime_id": 2167,
+    "good_recommendations": [
+      "Kanon",
+      "Air",
+      "Clannad ~After Story~",
+      "anohana: the flower we saw that day",
+      "your lie in april",
+      "Angel Beats!"
+    ],
+    "acceptable_recommendations": [
+      "Toradora!",
+      "violet evergarden"
+    ],
+    "bad_recommendations": [
+      "Death Note",
+      "Monster",
+      "Black Lagoon"
+    ]
+  },
+  {
+    "seed": "Violet Evergarden",
+    "anime_id": 33352,
+    "good_recommendations": [
+      "your lie in april",
+      "anohana: the flower we saw that day",
+      "Plastic Memories",
+      "Clannad",
+      "Hotarubi no Mori e"
+    ],
+    "acceptable_recommendations": [
+      "K-On!",
+      "Barakamon"
+    ],
+    "bad_recommendations": [
+      "Death Note",
+      "Monster",
+      "Black Lagoon"
+    ]
+  },
+  {
+    "seed": "Erased",
+    "anime_id": 31043,
+    "good_recommendations": [
+      "Steins;Gate",
+      "Re:Zero - Starting Life in Another World",
+      "Death Note",
+      "Monster",
+      "Another",
+      "Orange"
+    ],
+    "acceptable_recommendations": [
+      "your lie in april",
+      "anohana: the flower we saw that day"
+    ],
+    "bad_recommendations": [
+      "K-On!",
+      "lucky☆star",
+      "Love Live! School Idol Project"
+    ]
+  },
+  {
+    "seed": "Parasyte -the maxim-",
+    "anime_id": 22535,
+    "good_recommendations": [
+      "Tokyo Ghoul",
+      "Devilman Crybaby",
+      "Inuyashiki",
+      "Death Note",
+      "Attack on Titan",
+      "Psycho-Pass"
+    ],
+    "acceptable_recommendations": [
+      "Steins;Gate",
+      "Monster"
+    ],
+    "bad_recommendations": [
+      "K-On!",
+      "lucky☆star",
+      "Love Live! School Idol Project"
+    ]
+  },
+  {
+    "seed": "From the New World",
+    "anime_id": 13125,
+    "good_recommendations": [
+      "Shinsekai yori",
+      "Shiki",
+      "Psycho-Pass",
+      "Made in Abyss",
+      "Land of the Lustrous",
+      "ergo proxy",
+      "Serial Experiments Lain"
+    ],
+    "acceptable_recommendations": [
+      "Steins;Gate",
+      "Puella Magi Madoka Magica"
+    ],
+    "bad_recommendations": [
+      "K-On!",
+      "lucky☆star",
+      "Love Live! School Idol Project"
+    ]
+  },
+  {
+    "seed": "Your Lie in April",
+    "anime_id": 23273,
+    "good_recommendations": [
+      "anohana: the flower we saw that day",
+      "Clannad",
+      "Kids on the Slope",
+      "Nodame Cantabile",
+      "violet evergarden"
+    ],
+    "acceptable_recommendations": [
+      "K-On!",
+      "Toradora!"
+    ],
+    "bad_recommendations": [
+      "Death Note",
+      "Monster",
+      "Black Lagoon"
+    ]
+  },
+  {
+    "seed": "Anohana: The Flower We Saw That Day",
+    "anime_id": 9989,
+    "good_recommendations": [
+      "Clannad",
+      "your lie in april",
+      "Angel Beats!",
+      "Orange",
+      "Plastic Memories",
+      "violet evergarden"
+    ],
+    "acceptable_recommendations": [
+      "K-On!",
+      "Toradora!"
+    ],
+    "bad_recommendations": [
+      "Death Note",
+      "Monster",
+      "Black Lagoon"
+    ]
+  },
+  {
+    "seed": "Serial Experiments Lain",
+    "anime_id": 339,
+    "good_recommendations": [
+      "Texhnolyze",
+      "Haibane Renmei",
+      "ergo proxy",
+      "Neon Genesis Evangelion",
+      "Boogiepop Phantom"
+    ],
+    "acceptable_recommendations": [
+      "Steins;Gate",
+      "Psycho-Pass"
+    ],
+    "bad_recommendations": [
+      "K-On!",
+      "lucky☆star",
+      "Love Live! School Idol Project"
+    ]
+  },
+  {
+    "seed": "Ergo Proxy",
+    "anime_id": 790,
+    "good_recommendations": [
+      "Texhnolyze",
+      "Serial Experiments Lain",
+      "Neon Genesis Evangelion",
+      "Psycho-Pass",
+      "Ghost in the Shell",
+      "Witch Hunter Robin"
+    ],
+    "acceptable_recommendations": [
+      "Steins;Gate",
+      "Monster"
+    ],
+    "bad_recommendations": [
+      "K-On!",
+      "lucky☆star",
+      "Love Live! School Idol Project"
+    ]
+  },
+  {
+    "seed": "Ping Pong the Animation",
+    "anime_id": 22135,
+    "good_recommendations": [
+      "The Tatami Galaxy",
+      "Mob Psycho 100",
+      "Kemonozume",
+      "Tekkon Kinkreet",
+      "Run with the Wind"
+    ],
+    "acceptable_recommendations": [
+      "Haikyu!!",
+      "Hajime no Ippo"
+    ],
+    "bad_recommendations": [
+      "Death Note",
+      "Monster",
+      "Serial Experiments Lain"
+    ]
+  },
+  {
+    "seed": "Great Teacher Onizuka",
+    "anime_id": 245,
+    "good_recommendations": [
+      "Golden Boy",
+      "Slam Dunk",
+      "Salaryman Kintaro",
+      "Gokusen",
+      "Gintama"
+    ],
+    "acceptable_recommendations": [
+      "Naruto",
+      "One Piece"
+    ],
+    "bad_recommendations": [
+      "Serial Experiments Lain",
+      "ergo proxy",
+      "Monster"
+    ]
+  },
+  {
+    "seed": "Mob Psycho 100",
+    "anime_id": 32182,
+    "good_recommendations": [
+      "One Punch Man",
+      "The Disastrous Life of Saiki K.",
+      "Kill la Kill",
+      "FLCL",
+      "Gintama",
+      "Hunter x Hunter"
+    ],
+    "acceptable_recommendations": [
+      "Fullmetal Alchemist: Brotherhood",
+      "My Hero Academia"
+    ],
+    "bad_recommendations": [
+      "Monster",
+      "Serial Experiments Lain",
+      "ergo proxy"
+    ]
+  },
+  {
+    "seed": "Mushishi",
+    "anime_id": 457,
+    "good_recommendations": [
+      "Natsume's Book of Friends",
+      "Kino's Journey",
+      "Mononoke",
+      "Barakamon",
+      "Hotarubi no Mori e"
+    ],
+    "acceptable_recommendations": [
+      "Hunter x Hunter",
+      "violet evergarden"
+    ],
+    "bad_recommendations": [
+      "Death Note",
+      "Monster",
+      "Black Lagoon"
+    ]
+  },
+  {
+    "seed": "Puella Magi Madoka Magica",
+    "anime_id": 9756,
+    "good_recommendations": [
+      "Yuki Yuna is a Hero",
+      "Selector Infected WIXOSS",
+      "Magical Girl Raising Project",
+      "Steins;Gate",
+      "Psycho-Pass",
+      "Neon Genesis Evangelion"
+    ],
+    "acceptable_recommendations": [
+      "Fate/Zero",
+      "Death Note"
+    ],
+    "bad_recommendations": [
+      "K-On!",
+      "lucky☆star",
+      "Love Live! School Idol Project"
+    ]
+  },
+  {
+    "seed": "Toradora!",
+    "anime_id": 4224,
+    "good_recommendations": [
+      "Golden Time",
+      "Lovely Complex",
+      "Kimi ni Todoke: From Me to You",
+      "The Pet Girl of Sakurasou",
+      "Clannad",
+      "Maid Sama!"
+    ],
+    "acceptable_recommendations": [
+      "anohana: the flower we saw that day",
+      "your lie in april"
+    ],
+    "bad_recommendations": [
+      "Death Note",
+      "Monster",
+      "Black Lagoon"
+    ]
+  },
+  {
+    "seed": "Black Lagoon",
+    "anime_id": 889,
+    "good_recommendations": [
+      "Jormungand",
+      "Gangsta.",
+      "Canaan",
+      "Phantom: Requiem for the Phantom",
+      "Cowboy Bebop",
+      "Michiko & Hatchin"
+    ],
+    "acceptable_recommendations": [
+      "Psycho-Pass",
+      "Fate/Zero"
+    ],
+    "bad_recommendations": [
+      "K-On!",
+      "lucky☆star",
+      "Love Live! School Idol Project"
+    ]
+  }
+]

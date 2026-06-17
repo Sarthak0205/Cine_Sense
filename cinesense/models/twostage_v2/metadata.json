@@ -1,0 +1,13 @@
+{
+  "model_version": "twostage_v2",
+  "catalog_version": "sha256_8a0b7d55355bb36c6925b687fd43acc2beb5871bce8372846f5d91d7c84381d2",
+  "embedding_version": "all-MiniLM-L6-v2-residual-projection_sha256_v2",
+  "created_at": "2026-06-15T16:04:12.588914Z",
+  "hyperparameters": {
+    "semantic_weight": 0.85,
+    "popularity_weight": 0.15,
+    "rating_weight_scheme": "normalized",
+    "retrieval_candidate_count": 100,
+    "seed_batch_size": 128
+  }
+}

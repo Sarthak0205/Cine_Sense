@@ -1,0 +1,21 @@
+{
+  "dataset_version": "anime_user_watches_v1",
+  "evaluated_users": 1000,
+  "evaluation_target": "validation",
+  "metrics": {
+    "hit_rate@10": 0.38,
+    "map@10": 0.018755558075081887,
+    "ndcg@10": 0.03641828098986728,
+    "precision@10": 0.0501,
+    "recall@10": 0.04385340157355741,
+    "recall@20": 0.08352770296916694
+  },
+  "model_name": "cinesense_single_seed_max_reranked_a",
+  "split": {
+    "test_ratio": 0.1,
+    "train_ratio": 0.8,
+    "val_ratio": 0.1
+  },
+  "split_seed": 42,
+  "timestamp": "2026-06-01T09:24:18.589786+00:00"
+}

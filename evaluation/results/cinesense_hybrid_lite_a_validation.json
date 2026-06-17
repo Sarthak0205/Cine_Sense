@@ -1,0 +1,21 @@
+{
+  "dataset_version": "anime_user_watches_v1",
+  "evaluated_users": 1000,
+  "evaluation_target": "validation",
+  "metrics": {
+    "hit_rate@10": 0.431,
+    "map@10": 0.02227601127488032,
+    "ndcg@10": 0.04542958747456885,
+    "precision@10": 0.05669999999999999,
+    "recall@10": 0.05030158610841012,
+    "recall@20": 0.09284853519189229
+  },
+  "model_name": "cinesense_hybrid_lite_a",
+  "split": {
+    "test_ratio": 0.1,
+    "train_ratio": 0.8,
+    "val_ratio": 0.1
+  },
+  "split_seed": 42,
+  "timestamp": "2026-06-01T12:12:05.112762+00:00"
+}

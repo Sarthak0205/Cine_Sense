@@ -1,0 +1,27 @@
+scenario_name,mode,seeds,ratings
+Death Note,discover,1535,10.0
+Code Geass,discover,1575,10.0
+Steins;Gate,discover,9253,10.0
+Attack on Titan,discover,16498,10.0
+FMAB,discover,5114,10.0
+Hunter x Hunter,discover,11061,10.0
+One Piece,discover,21,10.0
+Naruto,discover,20,10.0
+Monster,discover,19,10.0
+Psycho-Pass,discover,13601,10.0
+Death Note + Code Geass,discover,1535;1575,10.0;9.0
+Death Note + Steins;Gate,discover,1535;9253,10.0;9.0
+AoT + FMAB,discover,16498;5114,10.0;9.0
+Hunter x Hunter + One Piece,discover,11061;21,10.0;9.0
+Monster + Death Note,discover,19;1535,10.0;9.0
+Code Geass + AoT,discover,1575;16498,10.0;9.0
+Steins;Gate + Psycho-Pass,discover,9253;13601,10.0;9.0
+Death Note + Code Geass + Steins;Gate,discover,1535;1575;9253,10.0;9.0;8.0
+AoT + Death Note + FMAB,discover,16498;1535;5114,10.0;9.0;8.0
+Hunter x Hunter + Code Geass + Steins;Gate,discover,11061;1575;9253,10.0;9.0;8.0
+Monster + Death Note + Steins;Gate,discover,19;1535;9253,10.0;9.0;8.0
+Mainstream Triple,discover,1535;16498;5114,10.0;9.0;8.0
+Niche Triple,discover,30948;5920;553,10.0;9.0;8.0
+Mixed Genre Triple,discover,1575;9253;20,10.0;9.0;8.0
+Unrelated Triple,discover,9253;5680;32379,10.0;9.0;8.0
+Death Note (Similar Mode),similar,1535,10.0
