@@ -7,7 +7,7 @@ interface RecommendationCardProps {
 }
 
 export const RecommendationCard: React.FC<RecommendationCardProps> = ({ rec, onClick }) => {
-  const matchedSeed = rec.explanation.matched_seed.title;
+  const matchedSeed = rec.explanation.matched_seed ? rec.explanation.matched_seed.title : null;
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" || e.key === " ") {
@@ -27,12 +27,12 @@ export const RecommendationCard: React.FC<RecommendationCardProps> = ({ rec, onC
     >
       <div className="card-header">
         <div className="card-titles">
-          <span className="card-title">{rec.title}</span>
+          <span className="card-title" title={rec.title}>{rec.title}</span>
           {rec.title_english && (
-            <span className="card-subtitle">{rec.title_english}</span>
+            <span className="card-subtitle" title={rec.title_english}>{rec.title_english}</span>
           )}
         </div>
-        <div className="card-score">{(rec.score * 100).toFixed(1)}%</div>
+        <div className="card-score">{rec.match_score} / 10</div>
       </div>
 
       <div className="card-body">

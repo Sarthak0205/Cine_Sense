@@ -95,7 +95,7 @@ class TestRecommendationService(unittest.TestCase):
         self.assertEqual(explanation["matched_seed"]["title"], "Anime A")
         self.assertAlmostEqual(explanation["similarity"], 0.8, places=4)
         self.assertAlmostEqual(explanation["popularity"], 0.2, places=4)
-        self.assertIn("highly similar to 'Anime A'", explanation["reason"])
+        self.assertIn("Strong semantic similarity to Anime A", explanation["reason"])
 
     def test_enrich_recommendations(self):
         recs = [101]

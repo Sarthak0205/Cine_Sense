@@ -140,24 +140,75 @@ export const RecommendationDetailsModal: React.FC<RecommendationDetailsModalProp
             <div className="modal-meta-item">
               <span className="meta-label">Match Score</span>
               <span className="meta-value score-highlight">
-                {(recommendation.score * 100).toFixed(1)}%
+                {recommendation.match_score} / 10
               </span>
             </div>
-            {recommendation.explanation.matched_seed && (
-              <div className="modal-meta-item">
-                <span className="meta-label">Matched With</span>
+            <div className="modal-meta-item">
+              <span className="meta-label">Match Quality</span>
+              <span className={`meta-value badge-highlight badge-${recommendation.match_badge.toLowerCase().replace(' ', '-')}`}>
+                {recommendation.match_badge}
+              </span>
+            </div>
+          </div>
+
+          {/* Seed attribution visualization (Phase 3) */}
+          {recommendation.explanation.seed_shares && Object.keys(recommendation.explanation.seed_shares).length > 0 ? (
+            <div className="modal-section seed-attribution-section">
+              <h3>Matched Seeds Attribution</h3>
+              <div className="seed-shares-list">
+                {Object.entries(recommendation.explanation.seed_shares).map(([id, shareInfo]: [string, any]) => {
+                  const pct = Math.round(shareInfo.share * 100);
+                  return (
+                    <div key={id} className="seed-share-row">
+                      <span className="seed-share-name">{shareInfo.title}</span>
+                      <div className="seed-share-bar-container">
+                        <div className="seed-share-bar-fill" style={{ width: `${pct}%` }}></div>
+                      </div>
+                      <span className="seed-share-percentage">{pct}%</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ) : (
+            recommendation.explanation.matched_seed && (
+              <div className="modal-section seed-attribution-section">
+                <h3>Matched Seed</h3>
                 <span className="meta-value seed-name">
                   {recommendation.explanation.matched_seed.title}
                 </span>
               </div>
+            )
+          )}
+
+          {/* Explanation reasons list (Phase 2) */}
+          <div className="modal-section explanation-section">
+            <h3>Why you may like it:</h3>
+            <p className="explanation-text-summary">{recommendation.explanation.summary || recommendation.explanation.reason}</p>
+            {recommendation.explanation.reasons && recommendation.explanation.reasons.length > 0 && (
+              <ul className="explanation-reasons-list">
+                {recommendation.explanation.reasons.map((r, idx) => (
+                  <li key={idx} className="explanation-reason-item">
+                    <span className="reason-bullet">•</span> {r}
+                  </li>
+                ))}
+              </ul>
             )}
           </div>
 
-          {/* Explanation section */}
-          <div className="modal-section explanation-section">
-            <h3>Why you may like it:</h3>
-            <p className="explanation-text">{recommendation.explanation.reason}</p>
-          </div>
+          {/* Dynamic Genres Section (Phase 5) */}
+          {details?.genres && details.genres.length > 0 && (
+            <div className="modal-section genres-section">
+              <h3>Genres</h3>
+              <div className="genres-list">
+                {details.genres.map((genre) => (
+                  <span key={genre} className="genre-tag">
+                    {genre}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Synopsis Section with Shimmer Loading */}
           <div className="modal-section synopsis-section">

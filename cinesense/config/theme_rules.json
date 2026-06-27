@@ -1,0 +1,14 @@
+{
+  "psychological": ["psychological", "mind", "conscience", "trauma", "identity", "memory", "mystery", "detective", "murder", "killer", "criminal", "crime", "pursuit", "monster", "genius", "strategy", "manipulation", "suspense"],
+  "crime": ["crime", "criminal", "detective", "murder", "killer", "police", "investigation", "case", "justice", "pursuit", "evidence", "victim", "law", "trial", "conspiracy"],
+  "war": ["war", "military", "army", "soldier", "battle", "battlefield", "oppression", "survival", "walls", "invasion", "rebellion", "resistance", "humanity", "weapon", "corps"],
+  "romance": ["romance", "romantic", "love", "fate", "heart", "relationship", "couple", "feelings", "emotional", "dream", "body", "swap", "supernatural", "confession", "date"],
+  "sci-fi": ["scientific", "science", "future", "technology", "experiment", "lab", "time", "travel", "space", "robot", "mecha", "dimension", "microwave", "hacker", "machine", "alien"],
+  "horror": ["horror", "ghoul", "gore", "blood", "flesh", "monster", "demon", "vampire", "curse", "fear", "creature", "supernatural", "dark", "terror", "ghost"],
+  "action": ["action", "battle", "fight", "fighting", "combat", "power", "warrior", "soldier", "army", "military", "weapon", "attack", "mission", "survival"],
+  "adventure": ["adventure", "journey", "travel", "crew", "pirate", "treasure", "island", "quest", "explore", "world", "ship", "sea", "grand", "kingdom"],
+  "fantasy": ["fantasy", "magic", "magical", "demon", "dragon", "kingdom", "curse", "spirit", "supernatural", "wizard", "sword", "myth", "god", "beast"],
+  "historical": ["historical", "history", "era", "samurai", "warrior", "viking", "medieval", "ancient", "kingdom", "empire", "japan", "england", "denmark", "thorfinn", "revenge"],
+  "thriller": ["thriller", "suspense", "mystery", "death", "chase", "danger", "conspiracy", "secret", "murder", "killer", "survival", "terror", "mind", "game"],
+  "slice of life": ["slice of life", "slice", "everyday", "school life", "peaceful", "comfy", "relaxing"]
+}

@@ -38,7 +38,15 @@ def weighted_max_similarity_to_train_items(
         weighted_sim_sum += weighted_batch_scores.sum(axis=1)
 
     weighted_avg = weighted_sim_sum / total_weights
-    hybrid_score = 0.7 * weighted_avg + 0.3 * max_sim
+    
+    rebalance_weight_str = os.environ.get("CINESENSE_REBALANCE_WEIGHT", "0.70")
+    try:
+        weight_avg = float(rebalance_weight_str)
+    except ValueError:
+        weight_avg = 0.70
+    weight_max = 1.0 - weight_avg
+    
+    hybrid_score = weight_avg * weighted_avg + weight_max * max_sim
     return hybrid_score
 
 

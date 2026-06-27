@@ -2,6 +2,10 @@ from __future__ import annotations
 import os
 import sys
 from dataclasses import dataclass
+# pyrefly: ignore [missing-import]
+from dotenv import load_dotenv
+
+load_dotenv()
 
 @dataclass
 class GraphRerankConfig:

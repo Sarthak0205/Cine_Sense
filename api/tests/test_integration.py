@@ -317,5 +317,75 @@ class TestAPIIntegration(unittest.TestCase):
             self.assertEqual(response.status_code, 422)
 
 
+    def test_recommend_naruto_franchise_leakage(self):
+        """Verify that Naruto seed does not recommend Boruto, Shippuden, or Naruto movies/specials."""
+        payload = {
+            "anime_ids": [20],
+            "ratings": {"20": 10.0},
+            "top_k": 30,
+            "mode": "discover",
+        }
+        with TestClient(app) as client:
+            response = client.post("/recommend", json=payload)
+            self.assertEqual(response.status_code, 200)
+            data = response.json()
+            recs = data["recommendations"]
+            for r in recs:
+                title = r["title"].lower()
+                title_eng = (r.get("title_english") or "").lower()
+                
+                # Assert no Boruto, Naruto Shippuden, Naruto movies/specials/OVAs are returned
+                self.assertNotIn("boruto", title)
+                self.assertNotIn("boruto", title_eng)
+                if "naruto" in title or "naruto" in title_eng:
+                    # Self-seed is already filtered out, any other title containing "naruto" is a leakage
+                    self.fail(f"Found Naruto franchise relative: {r['title']}")
+
+    def test_recommend_one_piece_franchise_leakage(self):
+        """Verify that One Piece seed does not recommend Film Red, Stampede, or One Piece movies/specials."""
+        payload = {
+            "anime_ids": [21],
+            "ratings": {"21": 10.0},
+            "top_k": 30,
+            "mode": "discover",
+        }
+        with TestClient(app) as client:
+            response = client.post("/recommend", json=payload)
+            self.assertEqual(response.status_code, 200)
+            data = response.json()
+            recs = data["recommendations"]
+            for r in recs:
+                title = r["title"].lower()
+                title_eng = (r.get("title_english") or "").lower()
+                
+                # Assert no One Piece movies, specials, OVAs, or specific film names like Red/Stampede are returned
+                self.assertNotIn("film red", title)
+                self.assertNotIn("film red", title_eng)
+                self.assertNotIn("stampede", title)
+                self.assertNotIn("stampede", title_eng)
+                if "one piece" in title or "one piece" in title_eng:
+                    self.fail(f"Found One Piece franchise relative: {r['title']}")
+
+    def test_recommend_bleach_franchise_leakage(self):
+        """Verify that Bleach seed does not recommend Bleach movies/specials."""
+        payload = {
+            "anime_ids": [269],
+            "ratings": {"269": 10.0},
+            "top_k": 30,
+            "mode": "discover",
+        }
+        with TestClient(app) as client:
+            response = client.post("/recommend", json=payload)
+            self.assertEqual(response.status_code, 200)
+            data = response.json()
+            recs = data["recommendations"]
+            for r in recs:
+                title = r["title"].lower()
+                title_eng = (r.get("title_english") or "").lower()
+                
+                if "bleach" in title or "bleach" in title_eng:
+                    self.fail(f"Found Bleach franchise relative: {r['title']}")
+
+
 if __name__ == "__main__":
     unittest.main()
