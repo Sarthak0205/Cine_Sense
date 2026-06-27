@@ -246,15 +246,15 @@ class TestGraphRerank(unittest.TestCase):
 
             res = self.service.recommend([101], mode="discover", user_id="user_12", top_k=1)
             
-            # For 102: cosine=0.9 (>=0.60), Jaccard=0.25 (>=0.10), distance=1 (in {1,2})
-            # Expected reasons: "High semantic similarity", "Strong co-watch overlap", "Frequently watched by similar users"
-            # Expected summary: "Recommended because it is semantically similar, frequently co-watched, and watched by similar users."
+            # For 102: cosine=0.9 (>=0.75), Jaccard=0.25 (>=0.05), distance=1
+            # Expected reasons: "Frequently watched by Anime Seed One fans", "High collaborative relevance to Anime Seed One", "Strong semantic similarity to Anime Seed One"
+            # Expected summary: "Frequently watched by Anime Seed One fans"
             exp = res[0]["explanation"]
             self.assertEqual(len(exp["reasons"]), 3)
-            self.assertIn("High semantic similarity", exp["reasons"])
-            self.assertIn("Strong co-watch overlap", exp["reasons"])
-            self.assertIn("Frequently watched by similar users", exp["reasons"])
-            self.assertIn("Recommended because it is semantically similar, frequently co-watched, and watched by similar users.", exp["summary"])
+            self.assertIn("Frequently watched by Anime Seed One fans", exp["reasons"])
+            self.assertIn("High collaborative relevance to Anime Seed One", exp["reasons"])
+            self.assertIn("Strong semantic similarity to Anime Seed One", exp["reasons"])
+            self.assertEqual(exp["summary"], "Frequently watched by Anime Seed One fans")
 
     def test_asset_validation_invalid_dimensions(self):
         # Mismatched neighbor_ids and neighbor_jaccards shapes

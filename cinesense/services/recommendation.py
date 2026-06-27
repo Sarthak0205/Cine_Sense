@@ -2,40 +2,18 @@ from __future__ import annotations
 
 import re
 import os
+import json
 import numpy as np
 import pandas as pd
 from cinesense.recommenders.two_stage import CineSenseTwoStage
 from cinesense.ranking.weighted_b import weighted_max_similarity_to_train_items, rerank_candidates
 from cinesense.retrieval.hybrid_c import hybrid_c_retrieval_scores, top_retrieval_indices
+from cinesense.utils.franchise import load_franchise_aliases, get_canonical_franchise
 
 
 def get_franchise(title: str) -> str:
     """Heuristic to extract the base franchise name from an anime title."""
-    title = str(title).lower().strip()
-    
-    # Custom manual overrides for known crossover/special titles
-    overrides = {
-        "attack on skytree": "attack on titan",
-        "shingeki no kyotou": "shingeki no kyojin",
-    }
-    if title in overrides:
-        return overrides[title]
-    
-    # Split on major delimiters like colons, dashes, parenthesis, exclamation marks
-    title = re.split(r'[:\-\(!]', title)[0].strip()
-    
-    if title in overrides:
-        return overrides[title]
-    
-    # Strip standard franchise suffixes/keywords
-    title = re.sub(
-        r'\b(season|movie|film|ova|ona|tv|specials|special|recap|pilot|part|chapter|edition|remaster|remake|the animation|rewrite|relight|summary|3d|ii|iii|iv|v|vi|vii|viii|ix|x|\d+st|\d+nd|\d+rd|\d+th|\d+)\b',
-        '',
-        title
-    )
-    # Remove double spaces
-    title = re.sub(r'\s+', ' ', title).strip()
-    return title
+    return get_canonical_franchise(title)
 
 
 def is_sequel_title(title: str) -> bool:
@@ -84,15 +62,34 @@ class RecommendationService:
         from cinesense.config.graph_rerank import GraphRerankConfig
         self.rerank_config = rerank_config or GraphRerankConfig.from_env()
         self.telemetry = telemetry
+        self.franchise_aliases = load_franchise_aliases()
+        
+        # Load theme rules from configuration
+        dir_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        theme_rules_path = os.path.join(dir_path, "config", "theme_rules.json")
+        if os.path.exists(theme_rules_path):
+            with open(theme_rules_path, "r", encoding="utf-8") as f:
+                self.theme_rules = json.load(f)
+        else:
+            self.theme_rules = {}
 
         # Build an in-memory O(1) dictionary mapping for catalog metadata lookup
         self.catalog_meta = {}
         for _, row in self.catalog_df.iterrows():
             anime_id = int(row["anime_id"])
+            title = str(row.get("title", ""))
+            title_english = str(row.get("title_english", "")) if pd.notna(row.get("title_english")) else ""
+            synopsis = str(row.get("synopsis", "")) if pd.notna(row.get("synopsis")) else ""
+            
+            # Extract genres dynamically using theme rules mapping
+            text = f"{title} {title_english} {synopsis}".lower()
+            genres = [theme for theme, words in self.theme_rules.items() if any(w in text for w in words)]
+            
             self.catalog_meta[anime_id] = {
-                "title": str(row.get("title", "")),
-                "title_english": str(row.get("title_english", "")) if pd.notna(row.get("title_english")) else None,
-                "synopsis": str(row.get("synopsis", "")) if pd.notna(row.get("synopsis")) else None,
+                "title": title,
+                "title_english": title_english if title_english else None,
+                "synopsis": synopsis if synopsis else None,
+                "genres": genres,
             }
 
     def _increment_counter(self, name: str) -> None:
@@ -143,6 +140,7 @@ class RecommendationService:
             "title": meta["title"],
             "title_english": meta["title_english"],
             "synopsis": meta["synopsis"],
+            "genres": meta.get("genres", []),
         }
 
     def validate_inputs(
@@ -197,30 +195,120 @@ class RecommendationService:
         return valid_ids, validated_ratings
 
     def generate_explanations(self, recommended_id: int, seed_ids: list[int]) -> dict:
-        """Identifies the strongest matching seed anime based on cosine similarity and constructs an explanation."""
+        """Identifies seed contributions, computes multi-source relevance signals, and constructs explanations."""
         if not seed_ids:
             return {}
 
         rec_idx = self.recommender.item_id_to_index[recommended_id]
         emb_rec = self.recommender.catalog_embeddings[rec_idx]
+        rec_meta = self.catalog_meta.get(recommended_id, {})
+        rec_genres = rec_meta.get("genres", [])
 
+        # 1. Compute combined relevance for each seed to determine the dominant matched seed
         best_seed = None
-        max_sim = -float("inf")
+        max_relevance = -float("inf")
+        seed_similarities = {}
+        
+        jaccard_vals = {}
+        distance_vals = {}
 
         for seed_id in seed_ids:
             seed_idx = self.recommender.item_id_to_index[seed_id]
             emb_seed = self.recommender.catalog_embeddings[seed_idx]
-            # Since embeddings are pre-normalized, dot product equals cosine similarity
             sim = float(np.dot(emb_rec, emb_seed))
-            if sim > max_sim:
-                max_sim = sim
+            sim = max(-1.0, min(1.0, sim))
+            seed_similarities[seed_id] = sim
+            
+            jac = self._lookup_jaccard(seed_id, recommended_id)
+            dist = self._lookup_distance(seed_id, recommended_id)
+            jaccard_vals[seed_id] = jac
+            distance_vals[seed_id] = dist
+            
+            # Collaborative Proximity score contribution
+            dist_score = 0.5 if dist == 1 else (1.0 / 3.0) if dist == 2 else 0.0
+            
+            # Combined relevance score for matched seed selection
+            relevance = sim + 1.0 * jac + 0.3 * dist_score
+            
+            if relevance > max_relevance:
+                max_relevance = relevance
                 best_seed = seed_id
 
         pop_score = float(self.recommender.popularity_scores[rec_idx])
         best_seed_meta = self.catalog_meta.get(best_seed, {})
         best_seed_title = best_seed_meta.get("title", f"Anime {best_seed}")
 
-        reason = f"Recommended because it is highly similar to '{best_seed_title}'."
+        # 2. Compute shares
+        pos_sims = {s_id: max(0.01, sim) for s_id, sim in seed_similarities.items()}
+        sum_sims = sum(pos_sims.values())
+        seed_shares = {}
+        for s_id, val in pos_sims.items():
+            seed_shares[s_id] = (val / sum_sims) if sum_sims > 0 else (1.0 / len(seed_ids))
+
+        # 3. Gather signals for explanation generation with priority
+        reasons_with_priority = []
+
+        # Signal 1: Multi-seed co-watch overlap (highest priority if it exists)
+        if len(seed_ids) >= 2:
+            sorted_seeds = sorted(seed_ids, key=lambda s: seed_shares[s], reverse=True)
+            s1, s2 = sorted_seeds[0], sorted_seeds[1]
+            s1_title = self.catalog_meta.get(s1, {}).get("title", f"Anime {s1}")
+            s2_title = self.catalog_meta.get(s2, {}).get("title", f"Anime {s2}")
+            
+            if distance_vals[s1] <= 2 and distance_vals[s2] <= 2:
+                reasons_with_priority.append((1, f"Appears in the viewing patterns of users who enjoy both {s1_title} and {s2_title}"))
+                reasons_with_priority.append((2, f"Frequently watched by fans of both {s1_title} and {s2_title}"))
+
+        # Signal 2: Co-watch / Jaccard / distance signals
+        for s_id in seed_ids:
+            s_title = self.catalog_meta.get(s_id, {}).get("title", f"Anime {s_id}")
+            jac = jaccard_vals[s_id]
+            dist = distance_vals[s_id]
+            
+            if jac >= 0.05:
+                reasons_with_priority.append((3, f"Frequently watched by {s_title} fans"))
+            if dist == 1:
+                reasons_with_priority.append((4, f"High collaborative relevance to {s_title}"))
+            elif dist == 2:
+                reasons_with_priority.append((5, f"Watched by users who enjoy {s_title}"))
+
+        # Signal 3: Genre themes
+        best_seed_genres = best_seed_meta.get("genres", [])
+        shared_genres = list(set(rec_genres).intersection(best_seed_genres))
+        if shared_genres:
+            genre_str = " and ".join(shared_genres[:2])
+            reasons_with_priority.append((6, f"Strong {genre_str} themes"))
+            reasons_with_priority.append((7, f"Shares {genre_str} elements with {best_seed_title}"))
+
+        # Signal 4: Semantic similarity
+        max_sim = seed_similarities[best_seed]
+        if max_sim >= 0.75:
+            reasons_with_priority.append((8, f"Strong semantic similarity to {best_seed_title}"))
+        elif max_sim >= 0.60:
+            reasons_with_priority.append((8, f"High semantic similarity to {best_seed_title}"))
+        else:
+            reasons_with_priority.append((9, f"Semantic similarity to {best_seed_title}"))
+
+        # Sort by priority ascending and deduplicate to get at most 3
+        unique_reasons = []
+        for priority, text in sorted(reasons_with_priority, key=lambda x: x[0]):
+            if text not in unique_reasons:
+                unique_reasons.append(text)
+                if len(unique_reasons) == 3:
+                    break
+
+        if not unique_reasons:
+            unique_reasons.append(f"Semantic similarity to {best_seed_title}")
+
+        reason_str = unique_reasons[0]
+
+        formatted_shares = {
+            int(s_id): {
+                "title": self.catalog_meta.get(s_id, {}).get("title", f"Anime {s_id}"),
+                "share": float(share)
+            }
+            for s_id, share in seed_shares.items()
+        }
 
         return {
             "matched_seed": {
@@ -229,7 +317,10 @@ class RecommendationService:
             },
             "similarity": max_sim,
             "popularity": pop_score,
-            "reason": reason,
+            "reason": reason_str,
+            "summary": reason_str,
+            "reasons": unique_reasons,
+            "seed_shares": formatted_shares
         }
 
     def is_sequel_title(self, title: str) -> bool:
@@ -290,16 +381,26 @@ class RecommendationService:
             score = scores.get(rec_id, 0.0)
             explanation = self.generate_explanations(rec_id, seed_ids)
             
-            # Map standard reason for backward compatibility
-            reason_str = explanation.get("reason", "")
-            explanation["summary"] = reason_str
-            explanation["reasons"] = ["High semantic similarity"]
+            # Calculate match_score and match_badge dynamically from raw score (Phase 4)
+            scaled = 6.0 + (score - 0.2) * (3.5 / 0.6)
+            match_score = round(max(1.0, min(10.0, scaled)), 1)
+            
+            if match_score >= 9.0:
+                match_badge = "Excellent Match"
+            elif match_score >= 8.0:
+                match_badge = "Strong Match"
+            elif match_score >= 7.0:
+                match_badge = "Good Match"
+            else:
+                match_badge = "Fair Match"
 
             item = {
                 "anime_id": rec_id,
                 "title": meta.get("title", f"Anime {rec_id}"),
                 "title_english": meta.get("title_english"),
                 "score": score,
+                "match_score": match_score,
+                "match_badge": match_badge,
                 "explanation": explanation,
             }
             
@@ -359,7 +460,7 @@ class RecommendationService:
         anime_ids: list[int],
         ratings: dict[int, float] | None = None,
         top_k: int = 10,
-        mode: str = "similar",
+        mode: str = "discover",
         user_id: str | None = None,
     ) -> list[dict]:
         """Runs the entire recommendation workflow: validation, inference, score calculation, and enrichment."""
@@ -371,110 +472,19 @@ class RecommendationService:
         # Determine routing path for A/B testing
         rerank_enabled = self.rerank_config.rerank_enabled
         is_treatment = False
-        if mode == "discover" and rerank_enabled and getattr(self.recommender, "graph_available", False) and user_id is not None:
-            import zlib
-            bucket = zlib.crc32(user_id.encode('utf-8')) % 100
-            if bucket < self.rerank_config.traffic_percent:
-                is_treatment = True
+        if mode == "discover" and rerank_enabled and getattr(self.recommender, "graph_available", False):
+            if user_id is not None:
+                import zlib
+                bucket = zlib.crc32(user_id.encode('utf-8')) % 100
+                if bucket < self.rerank_config.traffic_percent:
+                    is_treatment = True
 
         if is_treatment:
             self._increment_counter("ab_treatment_requests")
         else:
             self._increment_counter("ab_control_requests")
 
-        if mode == "discover":
-            # Step 1: Increase retrieval pool
-            retrieval_k = max(300, top_k * 10)
-
-            # Stage 1 retrieval
-            train_indices = np.asarray([self.recommender.item_id_to_index[aid] for aid in valid_ids], dtype=np.int32)
-            train_items = set(valid_ids)
-
-            retrieval_scores = hybrid_c_retrieval_scores(
-                train_indices,
-                self.recommender.catalog_embeddings,
-                self.recommender.popularity_scores,
-                self.recommender.semantic_weight,
-                self.recommender.popularity_weight,
-                self.recommender.seed_batch_size,
-            )
-            retrieved_indices_raw = top_retrieval_indices(
-                retrieval_scores,
-                train_items,
-                self.recommender.anime_ids,
-                retrieval_k,
-            )
-
-            # Step 2: Build seed franchise set
-            seed_franchises = set()
-            for aid in valid_ids:
-                meta = self.catalog_meta.get(aid)
-                if meta:
-                    seed_franchises.add(get_franchise(meta["title"]))
-                    if meta.get("title_english"):
-                        seed_franchises.add(get_franchise(meta["title_english"]))
-
-            # Step 3: Apply retrieval-stage exclusion
-            retrieved_indices_prepared = []
-            excluded_count = 0
-            for idx in retrieved_indices_raw:
-                anime_id = int(self.recommender.anime_ids[idx])
-                meta = self.catalog_meta[anime_id]
-                title = meta["title"]
-                eng_title = meta.get("title_english") or ""
-                cand_f = get_franchise(title)
-                cand_f_eng = get_franchise(eng_title) if eng_title else ""
-
-                if cand_f in seed_franchises or (cand_f_eng and cand_f_eng in seed_franchises):
-                    excluded_count += 1
-                    continue
-
-                retrieved_indices_prepared.append(idx)
-                if len(retrieved_indices_prepared) == 150:
-                    break
-
-            # Step 5: Add audit logging structure
-            self.candidate_audit = {
-                "retrieved": len(retrieved_indices_raw),
-                "excluded_seed_franchise": excluded_count,
-                "remaining": len(retrieved_indices_prepared),
-            }
-
-            retrieved_indices = np.asarray(retrieved_indices_prepared, dtype=np.int32)
-
-            # Stage 2 ranking
-            train_weights = np.asarray([
-                self.recommender._rating_weight(int(validated_ratings[aid])) if aid in validated_ratings else 1.0
-                for aid in valid_ids
-            ], dtype=np.float32)
-
-            weighted_semantic_scores = weighted_max_similarity_to_train_items(
-                train_indices,
-                train_weights,
-                self.recommender.catalog_embeddings,
-                self.recommender.seed_batch_size,
-            )
-            rerank_scores = (
-                self.recommender.semantic_weight * weighted_semantic_scores
-                + self.recommender.popularity_weight * self.recommender.popularity_scores
-            )
-
-            # Rerank candidates
-            rep_penalty = self.rerank_config.representation_penalty
-            rep_lambda = self.rerank_config.representation_lambda
-
-            recommendations = rerank_candidates(
-                retrieved_indices,
-                rerank_scores,
-                retrieval_scores,
-                self.recommender.anime_ids,
-                150,  # Keep up to 150 ranked items for subsequent filters
-                representation_penalty=rep_penalty,
-                representation_lambda=rep_lambda,
-                train_indices=train_indices,
-                catalog_embeddings=self.recommender.catalog_embeddings,
-            )
-        else:
+        if mode != "discover":
             # Similar mode (baseline logic)
             retrieval_k = top_k
             recommendations = self.recommender.recommend(
@@ -483,6 +493,9 @@ class RecommendationService:
                 top_k=retrieval_k,
             )
 
+            if not recommendations:
+                return []
+
             train_indices = np.asarray([self.recommender.item_id_to_index[aid] for aid in valid_ids], dtype=np.int32)
             train_weights = np.asarray([
                 self.recommender._rating_weight(int(validated_ratings[aid])) if aid in validated_ratings else 1.0
@@ -499,6 +512,108 @@ class RecommendationService:
                 self.recommender.semantic_weight * weighted_semantic_scores
                 + self.recommender.popularity_weight * self.recommender.popularity_scores
             )
+            scores = {
+                rec_id: float(rerank_scores[self.recommender.item_id_to_index[rec_id]])
+                for rec_id in recommendations
+            }
+            return self.enrich_recommendations(
+                recommendations,
+                scores,
+                valid_ids,
+                weighted_semantic_scores=weighted_semantic_scores,
+            )
+
+        # Stage 1: Retrieval (Unified for discover mode to support filtering)
+        train_indices = np.asarray([self.recommender.item_id_to_index[aid] for aid in valid_ids], dtype=np.int32)
+        train_items = set(valid_ids)
+
+        retrieval_scores = hybrid_c_retrieval_scores(
+            train_indices,
+            self.recommender.catalog_embeddings,
+            self.recommender.popularity_scores,
+            self.recommender.semantic_weight,
+            self.recommender.popularity_weight,
+            self.recommender.seed_batch_size,
+        )
+        
+        # Increase retrieval pool to ensure we have enough items after filtering
+        retrieval_k = max(300, top_k * 10)
+        retrieved_indices_raw = top_retrieval_indices(
+            retrieval_scores,
+            train_items,
+            self.recommender.anime_ids,
+            retrieval_k,
+        )
+
+        # Build seed franchise set using canonical mappings (Phase 1)
+        seed_franchises = set()
+        for aid in valid_ids:
+            meta = self.catalog_meta.get(aid)
+            if meta:
+                seed_franchises.add(get_canonical_franchise(meta["title"]))
+                if meta.get("title_english"):
+                    seed_franchises.add(get_canonical_franchise(meta["title_english"]))
+
+        # Apply retrieval-stage exclusion BEFORE final ranking in discover mode (Phase 1)
+        retrieved_indices_prepared = []
+        excluded_count = 0
+        for idx in retrieved_indices_raw:
+            anime_id = int(self.recommender.anime_ids[idx])
+            meta = self.catalog_meta[anime_id]
+            title = meta["title"]
+            eng_title = meta.get("title_english") or ""
+            cand_f = get_canonical_franchise(title)
+            cand_f_eng = get_canonical_franchise(eng_title) if eng_title else ""
+
+            if cand_f in seed_franchises or (cand_f_eng and cand_f_eng in seed_franchises):
+                excluded_count += 1
+                continue
+
+            retrieved_indices_prepared.append(idx)
+            if len(retrieved_indices_prepared) == 150:
+                break
+
+        self.candidate_audit = {
+            "retrieved": len(retrieved_indices_raw),
+            "excluded_seed_franchise": excluded_count,
+            "remaining": len(retrieved_indices_prepared),
+        }
+
+        retrieved_indices = np.asarray(retrieved_indices_prepared, dtype=np.int32)
+        if retrieved_indices.size == 0:
+            return []
+
+        # Stage 2: Ranking
+        train_weights = np.asarray([
+            self.recommender._rating_weight(int(validated_ratings[aid])) if aid in validated_ratings else 1.0
+            for aid in valid_ids
+        ], dtype=np.float32)
+
+        weighted_semantic_scores = weighted_max_similarity_to_train_items(
+            train_indices,
+            train_weights,
+            self.recommender.catalog_embeddings,
+            self.recommender.seed_batch_size,
+        )
+        rerank_scores = (
+            self.recommender.semantic_weight * weighted_semantic_scores
+            + self.recommender.popularity_weight * self.recommender.popularity_scores
+        )
+
+        rep_penalty = self.rerank_config.representation_penalty
+        rep_lambda = self.rerank_config.representation_lambda
+
+        recommendations = rerank_candidates(
+            retrieved_indices,
+            rerank_scores,
+            retrieval_scores,
+            self.recommender.anime_ids,
+            150,  # Keep up to 150 ranked items for subsequent filters
+            representation_penalty=rep_penalty,
+            representation_lambda=rep_lambda,
+            train_indices=train_indices,
+            catalog_embeddings=self.recommender.catalog_embeddings,
+        )
 
         if not recommendations:
             return []
@@ -516,16 +631,8 @@ class RecommendationService:
             weighted_semantic_scores=weighted_semantic_scores,
         )
 
-        # 5. Apply discovery filtering if mode == "discover"
-        if mode == "discover":
-            seed_franchises = set()
-            for aid in valid_ids:
-                meta = self.catalog_meta.get(aid)
-                if meta:
-                    seed_franchises.add(get_franchise(meta["title"]))
-                    if meta.get("title_english"):
-                        seed_franchises.add(get_franchise(meta["title_english"]))
-
+        # 5. Apply discovery filtering
+        if True:
             filtered_enriched = []
             seen_rec_franchises = set()
 
@@ -535,8 +642,8 @@ class RecommendationService:
                 rec_eng_title = item.get("title_english")
 
                 # A. Filter out seed franchises (already mostly excluded, but keep for robustness)
-                rec_f_name = get_franchise(rec_title)
-                rec_f_eng_name = get_franchise(rec_eng_title) if rec_eng_title else ""
+                rec_f_name = get_canonical_franchise(rec_title)
+                rec_f_eng_name = get_canonical_franchise(rec_eng_title) if rec_eng_title else ""
 
                 if rec_f_name in seed_franchises or (rec_f_eng_name and rec_f_eng_name in seed_franchises):
                     continue
@@ -612,31 +719,22 @@ class RecommendationService:
                         
                     # Compute Popularity Percentile
                     pop_pct = float(self.recommender.pop_percentiles[rec_idx])
-                    
-                    # Popularity Penalty
                     pop_pen = popularity_penalty * max(0.0, pop_pct - 0.95)
-                    
-                    # Semantic Score (item score)
                     semantic_score = item["score"]
                     
                     # Phase 4 Runtime Safety Guards
-                    # Jaccard bounds check: 0.0 <= jaccard <= 1.0
                     jaccard_valid = (0.0 <= max_jaccard <= 1.0)
-                    # Cosine bounds check: -1.0 <= cosine <= 1.0
                     cosine_valid = (-1.0 <= cosine_sim <= 1.0)
-                    # Distance check: distance in {1, 2, None}
                     dist_to_check = None if min_dist == 10 else min_dist
                     distance_valid = (dist_to_check in (1, 2, None))
                     
                     if not (jaccard_valid and cosine_valid and distance_valid):
-                        # Graceful fallback: disable graph contribution for this candidate
                         rerank_score = semantic_score
                         max_jaccard = 0.0
                         distance_score = 0.0
                         cosine_sim = 0.0
                         pop_pen = 0.0
                     else:
-                        # Apply reranking formula
                         rerank_score = (
                             semantic_score
                             + jaccard_weight * max_jaccard * (cosine_sim ** cosine_power)
@@ -644,44 +742,26 @@ class RecommendationService:
                             - pop_pen
                         )
                     
-                    # Phase 5 structured reasons
-                    reasons = []
-                    if cosine_sim >= 0.60:
-                        reasons.append("High semantic similarity")
-                    if max_jaccard >= 0.10:
-                        reasons.append("Strong co-watch overlap")
-                    if min_dist in (1, 2):
-                        reasons.append("Frequently watched by similar users")
-                        
-                    if not reasons:
-                        reasons.append("High semantic similarity")
-                        
-                    # Generate human-readable summary combining reasons
-                    summary_parts = []
-                    if "High semantic similarity" in reasons:
-                        summary_parts.append("semantically similar")
-                    if "Strong co-watch overlap" in reasons:
-                        summary_parts.append("frequently co-watched")
-                    if "Frequently watched by similar users" in reasons:
-                        summary_parts.append("watched by similar users")
-                        
-                    if len(summary_parts) == 3:
-                        summary = f"Recommended because it is {summary_parts[0]}, {summary_parts[1]}, and {summary_parts[2]}."
-                    elif len(summary_parts) == 2:
-                        summary = f"Recommended because it is {summary_parts[0]} and {summary_parts[1]}."
+                    # Recompute match score and badge using new reranked score (Phase 4)
+                    scaled = 6.0 + (rerank_score - 0.2) * (3.5 / 0.6)
+                    match_score = round(max(1.0, min(10.0, scaled)), 1)
+                    if match_score >= 9.0:
+                        match_badge = "Excellent Match"
+                    elif match_score >= 8.0:
+                        match_badge = "Strong Match"
+                    elif match_score >= 7.0:
+                        match_badge = "Good Match"
                     else:
-                        summary = f"Recommended because it is {summary_parts[0]}."
-                    
-                    # Attach reranked score and copy items
+                        match_badge = "Fair Match"
+
                     new_item = item.copy()
                     new_item["score"] = rerank_score
+                    new_item["match_score"] = match_score
+                    new_item["match_badge"] = match_badge
                     
-                    # Copy and update explanation dict
-                    old_exp = item.get("explanation", {})
-                    new_exp = old_exp.copy()
-                    new_exp["summary"] = summary
-                    new_exp["reasons"] = reasons
-                    new_item["explanation"] = new_exp
+                    # Update explanation reasons using updated reranked score parameters
+                    explanation = self.generate_explanations(rec_id, valid_ids)
+                    new_item["explanation"] = explanation
                     
                     if "_audit" in new_item:
                         new_item["_audit"] = new_item["_audit"].copy()
@@ -732,11 +812,18 @@ class RecommendationService:
                             
                     enriched = selected_recs
                 else:
-                    # Sort pool by the new rerank_score descending
                     reranked_pool.sort(key=lambda x: -x["score"])
                     enriched = reranked_pool[:top_k]
             else:
                 enriched = filtered_enriched[:top_k]
+
+        if not is_treatment:
+            for item in enriched:
+                old_exp = item.get("explanation", {})
+                new_exp = old_exp.copy()
+                new_exp["summary"] = old_exp.get("reason", "High semantic similarity")
+                new_exp["reasons"] = ["High semantic similarity"]
+                item["explanation"] = new_exp
 
         return enriched
 

@@ -47,6 +47,8 @@ def get_recommendations(
                 "title": item["title"],
                 "title_english": item["title_english"],
                 "score": round(item["score"], 4),
+                "match_score": item["match_score"],
+                "match_badge": item["match_badge"],
                 "explanation": item["explanation"],
             })
 
