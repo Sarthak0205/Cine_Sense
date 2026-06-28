@@ -43,3 +43,7 @@ build/
 
 # Keep production models
 !cinesense/models/**/*.npz
+
+# RC2 research artifacts
+cinesense/models/twostage_v2/model_assets.npz
+cinesense/models/twostage_v2/train_pairs.npz
