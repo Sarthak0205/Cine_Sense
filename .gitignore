@@ -34,3 +34,12 @@ datasets/
 # Build artifacts
 dist/
 build/
+# Ignore temporary model artifacts
+*.joblib
+*.pkl
+
+# Ignore random npz files
+*.npz
+
+# Keep production models
+!cinesense/models/**/*.npz
