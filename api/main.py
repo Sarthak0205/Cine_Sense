@@ -22,6 +22,16 @@ async def lifespan(app: FastAPI):
 
     # Load config once at startup
     print(f"Loading CineSenseTwoStage model from: {MODEL_DIR}...", flush=True)
+
+    # Validate required production model assets
+    required_assets = ["catalog.parquet", "metadata.json", "model_assets.npz", "graph_assets.npz"]
+    for asset in required_assets:
+        asset_path = os.path.join(MODEL_DIR, asset)
+        if not os.path.exists(asset_path):
+            raise FileNotFoundError(
+                f"CRITICAL ERROR: Required production model asset '{asset}' is missing from directory '{MODEL_DIR}'."
+            )
+
     try:
         model, catalog_df, metadata = load_model(MODEL_DIR)
         app.state.rerank_config = GraphRerankConfig.from_env()
@@ -44,9 +54,11 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
+allowed_origins_env = os.getenv("ALLOWED_ORIGINS")
+if allowed_origins_env:
+    allow_origins = [orig.strip() for orig in allowed_origins_env.split(",") if orig.strip()]
+else:
+    allow_origins = [
         # Vite dev
         "http://localhost:5173",
         "http://127.0.0.1:5173",
@@ -54,7 +66,11 @@ app.add_middleware(
         # Vite preview
         "http://localhost:4173",
         "http://127.0.0.1:4173",
-    ],
+    ]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allow_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

@@ -1,7 +1,9 @@
 import json
 import os
 import re
+from functools import lru_cache
 
+@lru_cache(maxsize=1)
 def load_franchise_aliases() -> dict:
     """Loads franchise aliases from config JSON file."""
     dir_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
