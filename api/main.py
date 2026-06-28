@@ -53,6 +53,14 @@ app = FastAPI(
     version="1.0.0",
     lifespan=lifespan,
 )
+@app.get("/")
+def root():
+    return {
+        "service": "CineSense API",
+        "status": "online",
+        "docs": "/docs",
+        "health": "/health"
+    }
 
 allowed_origins_env = os.getenv("ALLOWED_ORIGINS")
 if allowed_origins_env:
