@@ -2,8 +2,8 @@
 
 > Hybrid Anime Recommendation System powered by Semantic Retrieval and Graph-Based Reranking
 
-![Version](https://img.shields.io/badge/version-v1.0.0--rc1-blue)
-![Python](https://img.shields.io/badge/Python-3.11+-green)
+![Version](https://img.shields.io/badge/version-v1.0.0-blue)
+![Python](https://img.shields.io/badge/Python-3.13.5-green)
 ![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688)
 ![React](https://img.shields.io/badge/React-TypeScript-61DAFB)
 ![License](https://img.shields.io/badge/license-MIT-orange)
@@ -12,9 +12,9 @@
 
 # Overview
 
-CineSense is a production-oriented anime recommendation platform that combines modern semantic search with collaborative graph-based reranking to generate high-quality recommendations.
+CineSense is a production-oriented anime recommendation platform that combines semantic retrieval with graph-based reranking to generate high-quality recommendations.
 
-The system first retrieves semantically similar anime using embedding-based retrieval and then applies a lightweight graph-reranking layer using collaborative watch behavior to improve recommendation quality without retraining embeddings.
+The system first retrieves semantically similar anime using embedding-based retrieval and then applies a lightweight collaborative graph-reranking layer to improve recommendation quality without retraining embeddings.
 
 Through extensive benchmarking and evaluation, CineSense achieved:
 
@@ -23,6 +23,22 @@ Through extensive benchmarking and evaluation, CineSense achieved:
 * **+85.4% improvement in Precision@10**
 
 compared to the semantic-only baseline.
+
+---
+
+# Live Demo
+
+## Frontend
+
+https://cine-sense-g2a7.vercel.app
+
+## Backend API
+
+https://cine-sense-94ry.onrender.com
+
+## Swagger Documentation
+
+https://cine-sense-94ry.onrender.com/docs
 
 ---
 
@@ -43,10 +59,10 @@ compared to the semantic-only baseline.
 * FastAPI REST API
 * Production-ready architecture
 * Health monitoring
-* A/B testing support
-* Rollback controls
 * Runtime telemetry
 * Configuration management
+* Graceful degradation
+* Safe deployment validation
 
 ## Frontend
 
@@ -64,7 +80,6 @@ compared to the semantic-only baseline.
 * MRR
 * Precision@10
 * Multi-seed validation
-* Production monitoring
 * Automated regression testing
 
 ---
@@ -73,9 +88,6 @@ compared to the semantic-only baseline.
 
 ```text
 User Seeds
-     │
-     ▼
-Sentence Transformer Embeddings
      │
      ▼
 Semantic Retrieval
@@ -178,12 +190,12 @@ Metrics:
 * Discovery Rate
 * Franchise Diversity
 
-Validation scripts:
+Example validation commands:
 
 ```bash
-python evaluation/compare_rerank_methods.py
-python evaluation/production_monitor.py
-python evaluation/multi_seed_validation.py
+python evaluation/holdout_benchmark_eval.py
+python evaluation/diversity_audit.py
+python evaluation/stability_audit.py
 ```
 
 ---
@@ -196,13 +208,13 @@ python evaluation/multi_seed_validation.py
 * FastAPI
 * NumPy
 * Pandas
-* NetworkX
+* PyArrow
 * Pydantic
 
 ## Machine Learning
 
 * Sentence Transformers
-* Cosine Similarity Retrieval
+* Semantic Retrieval
 * Graph-Based Reranking
 
 ## Frontend
@@ -226,30 +238,29 @@ python evaluation/multi_seed_validation.py
 CineSense
 │
 ├── api/
-│   ├── routers/
-│   ├── schemas/
+│   ├── tests/
 │   └── main.py
 │
 ├── cinesense/
 │   ├── config/
 │   ├── models/
+│   ├── ranking/
 │   ├── recommenders/
 │   ├── retrieval/
-│   ├── ranking/
 │   ├── services/
 │   ├── tests/
 │   └── utils/
 │
 ├── evaluation/
-│   ├── benchmark.py
-│   ├── compare_rerank_methods.py
-│   ├── production_monitor.py
-│   └── multi_seed_validation.py
 │
 ├── frontend/
-│   ├── src/
-│   └── public/
+│   ├── public/
+│   └── src/
 │
+├── requirements.txt
+├── requirements-dev.txt
+├── render.yaml
+├── runtime.txt
 └── README.md
 ```
 
@@ -261,20 +272,43 @@ CineSense
 
 ```bash
 git clone https://github.com/Sarthak0205/Cine_Sense.git
+
 cd Cine_Sense
 ```
+
+---
 
 ## Create Virtual Environment
 
 ```bash
 python -m venv venv
+
 source venv/bin/activate
 ```
 
-## Install Dependencies
+---
+
+## Production Dependencies
 
 ```bash
 pip install -r requirements.txt
+```
+
+---
+
+## Development & Research Dependencies
+
+Includes:
+
+* Sentence Transformers
+* Torch
+* Scikit-learn
+* Evaluation tooling
+* Offline experiments
+* Embedding training scripts
+
+```bash
+pip install -r requirements-dev.txt
 ```
 
 ---
@@ -317,6 +351,78 @@ http://localhost:5173
 
 ---
 
+# Production Deployment
+
+## Backend (Render)
+
+Python Version:
+
+```text
+3.13.5
+```
+
+Build Command:
+
+```bash
+pip install -r requirements.txt
+```
+
+Start Command:
+
+```bash
+uvicorn api.main:app --host 0.0.0.0 --port $PORT
+```
+
+Environment Variables:
+
+```text
+CINESENSE_MODEL_DIR=cinesense/models/twostage_v1
+
+ALLOWED_ORIGINS=https://cine-sense-g2a7.vercel.app
+```
+
+Production API:
+
+```text
+https://cine-sense-94ry.onrender.com
+```
+
+---
+
+## Frontend (Vercel)
+
+Framework:
+
+```text
+Vite
+```
+
+Root Directory:
+
+```text
+frontend
+```
+
+Build Command:
+
+```bash
+npm run build
+```
+
+Environment Variables:
+
+```text
+VITE_API_URL=https://cine-sense-94ry.onrender.com
+```
+
+Production Frontend:
+
+```text
+https://cine-sense-g2a7.vercel.app
+```
+
+---
+
 # API Endpoints
 
 ## Get Recommendations
@@ -329,9 +435,11 @@ Example Request:
 
 ```json
 {
-  "anime_ids": [1535, 5114],
-  "mode": "discover",
-  "top_k": 10
+  "anime_ids": [20],
+  "ratings": {
+    "20": 9
+  },
+  "top_k": 5
 }
 ```
 
@@ -345,10 +453,20 @@ GET /anime/search?q=death
 
 ---
 
-## Anime Details
+## Health Check
 
-```http
-GET /anime/{anime_id}
+```bash
+curl https://cine-sense-94ry.onrender.com/health
+```
+
+Example Response:
+
+```json
+{
+  "status": "ok",
+  "model_version": "twostage_v1",
+  "graph_available": true
+}
 ```
 
 ---
@@ -358,26 +476,36 @@ GET /anime/{anime_id}
 ## Unit Tests
 
 ```bash
-python -m unittest discover cinesense/tests
+python -m unittest discover -s cinesense/tests
 ```
 
-## Integration Tests
+---
+
+## API Tests
 
 ```bash
-python -m unittest discover api/tests
+python -m unittest discover -s api/tests
+```
+
+---
+
+## Frontend Build Verification
+
+```bash
+npm run build --prefix frontend
 ```
 
 ---
 
 # Production Features
 
-* Graph asset validation
-* Runtime telemetry
+* Runtime model validation
 * Health monitoring
-* Safe rollback mechanism
-* A/B testing support
+* Environment-based CORS configuration
+* Graph asset validation
 * Configuration validation
 * Graceful degradation
+* Safe deployment verification
 * Benchmark regression detection
 
 ---
@@ -387,28 +515,30 @@ python -m unittest discover api/tests
 Current Release:
 
 ```text
-v1.0.0-rc1
+v1.0.0
 ```
 
 Status:
 
 ```text
-Release Candidate
+Production Deployment Complete
 ```
 
 ---
 
 # Future Roadmap
 
-## RC2
+## v1.1
 
 * User accounts
 * Favorites
 * Recommendation history
-* Recommendation feedback collection
-* Enhanced explainability
+* Recommendation feedback
+* Enhanced explanations
 
-## RC3
+---
+
+## v2.0
 
 * Anime + Movies unified catalog
 * Personalized recommendations
@@ -417,28 +547,22 @@ Release Candidate
 
 ---
 
-# Screenshots
-
-Add screenshots here:
-
-```text
-docs/homepage.png
-docs/search.png
-docs/recommendations.png
-```
-
----
-
 # Author
 
 **Sarthak Chaudhari**
 
-* GitHub: https://github.com/Sarthak0205
-* Project: CineSense
+GitHub:
+
+https://github.com/Sarthak0205
+
+Project:
+
+CineSense
 
 ---
 
 # License
 
 MIT License
-Copyright (c) 2026 Sarthak Chaudhari.
+
+Copyright (c) 2026 Sarthak Chaudhari
