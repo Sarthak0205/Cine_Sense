@@ -91,7 +91,15 @@ class CineSenseV1Recommender:
         return recommendations
 
     def _load_embedding_model(self, model_name: str) -> Any:
-        from sentence_transformers import SentenceTransformer
+        try:
+            # pyrefly: ignore [missing-import]
+            from sentence_transformers import SentenceTransformer
+        except ImportError as exc:
+            raise RuntimeError(
+                "sentence-transformers is required for research/training workflows. "
+                "Install requirements-dev.txt."
+            ) from exc
+
         return SentenceTransformer(model_name)
 
 
