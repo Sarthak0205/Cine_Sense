@@ -109,6 +109,21 @@ Final Recommendations
 
 ---
 
+# Research Datasets
+
+The original research datasets (`archive/` and `archive-2/`) are intentionally excluded from version control due to their size.
+
+Training, evaluation, and audit scripts that depend on these datasets require local copies to be placed in the expected directories.
+
+The production recommendation service does **not** require these datasets and runs entirely from the exported model artifacts located in:
+
+```text
+cinesense/models/twostage_v1/
+```
+
+This allows the deployed application to remain lightweight while preserving reproducibility for local research workflows.
+
+
 # Recommendation Pipeline
 
 ## Stage 1 — Semantic Retrieval
@@ -232,7 +247,7 @@ python evaluation/stability_audit.py
 
 ---
 
-# Project Structure
+ # Project Structure
 
 ```text
 CineSense
@@ -251,11 +266,20 @@ CineSense
 │   ├── tests/
 │   └── utils/
 │
+├── docs/
+│   ├── audits/
+│   ├── benchmark_summary.md
+│   ├── release_notes.md
+│   └── ui_specification.md
+│
 ├── evaluation/
 │
 ├── frontend/
 │   ├── public/
 │   └── src/
+│
+├── research/
+│   └── notebooks/
 │
 ├── requirements.txt
 ├── requirements-dev.txt
