@@ -27,6 +27,11 @@ export async function getRecommendations(
   topK: number = 10,
   mode: "discover" | "similar" = "discover"
 ): Promise<Recommendation[]> {
+  const tStart = performance.now();
+  if (import.meta.env.DEV) {
+    console.log(`[LATENCY] API request start for POST /recommend at ${new Date().toISOString()}`);
+  }
+
   const url = `${API_BASE_URL}/recommend`;
   const response = await fetch(url, {
     method: "POST",
@@ -38,10 +43,22 @@ export async function getRecommendations(
       mode: mode,
     }),
   });
+
+  if (import.meta.env.DEV) {
+    console.log(`[LATENCY] API response received at ${new Date().toISOString()}`);
+  }
+
   if (!response.ok) {
     const errData = await response.json().catch(() => ({}));
     throw new Error(errData.detail || `Failed to fetch recommendations: ${response.statusText}`);
   }
   const data = await response.json();
+  const tEnd = performance.now();
+  const waitingTimeMs = tEnd - tStart;
+
+  if (import.meta.env.DEV) {
+    console.log(`[LATENCY] Total waiting time: ${waitingTimeMs.toFixed(2)}ms`);
+  }
+
   return data.recommendations || [];
 }

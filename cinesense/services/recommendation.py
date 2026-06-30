@@ -9,6 +9,8 @@ from cinesense.recommenders.two_stage import CineSenseTwoStage
 from cinesense.ranking.weighted_b import weighted_max_similarity_to_train_items, rerank_candidates
 from cinesense.retrieval.hybrid_c import hybrid_c_retrieval_scores, top_retrieval_indices
 from cinesense.utils.franchise import load_franchise_aliases, get_canonical_franchise
+from cinesense.utils.text import normalize_synopsis
+from cinesense.utils.match_quality import get_match_quality
 
 
 def get_franchise(title: str) -> str:
@@ -88,7 +90,7 @@ class RecommendationService:
             self.catalog_meta[anime_id] = {
                 "title": title,
                 "title_english": title_english if title_english else None,
-                "synopsis": synopsis if synopsis else None,
+                "synopsis": normalize_synopsis(synopsis),
                 "genres": genres,
             }
 
@@ -139,7 +141,7 @@ class RecommendationService:
             "anime_id": anime_id,
             "title": meta["title"],
             "title_english": meta["title_english"],
-            "synopsis": meta["synopsis"],
+            "synopsis": normalize_synopsis(meta["synopsis"]),
             "genres": meta.get("genres", []),
         }
 
@@ -385,14 +387,7 @@ class RecommendationService:
             scaled = 6.0 + (score - 0.2) * (3.5 / 0.6)
             match_score = round(max(1.0, min(10.0, scaled)), 1)
             
-            if match_score >= 9.0:
-                match_badge = "Excellent Match"
-            elif match_score >= 8.0:
-                match_badge = "Strong Match"
-            elif match_score >= 7.0:
-                match_badge = "Good Match"
-            else:
-                match_badge = "Fair Match"
+            match_badge = get_match_quality(match_score)
 
             item = {
                 "anime_id": rec_id,
@@ -745,14 +740,7 @@ class RecommendationService:
                     # Recompute match score and badge using new reranked score (Phase 4)
                     scaled = 6.0 + (rerank_score - 0.2) * (3.5 / 0.6)
                     match_score = round(max(1.0, min(10.0, scaled)), 1)
-                    if match_score >= 9.0:
-                        match_badge = "Excellent Match"
-                    elif match_score >= 8.0:
-                        match_badge = "Strong Match"
-                    elif match_score >= 7.0:
-                        match_badge = "Good Match"
-                    else:
-                        match_badge = "Fair Match"
+                    match_badge = get_match_quality(match_score)
 
                     new_item = item.copy()
                     new_item["score"] = rerank_score

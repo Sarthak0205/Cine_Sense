@@ -32,3 +32,14 @@ def build_catalog_tags(anime_catalog: pd.DataFrame) -> pd.DataFrame:
     )
 
     return catalog[[ITEM_ID_COL, TITLE_COL, ENGLISH_TITLE_COL, SYNOPSIS_COL, "tags"]]
+
+
+def normalize_synopsis(synopsis: str | None) -> str:
+    """Safely normalizes synopsis text by trimming and collapsing multiple spaces/newlines."""
+    if not synopsis or not isinstance(synopsis, str):
+        return "No synopsis available for this title."
+    cleaned = " ".join(synopsis.split())
+    if cleaned.lower() in ("", "none", "null"):
+        return "No synopsis available for this title."
+    return cleaned
+

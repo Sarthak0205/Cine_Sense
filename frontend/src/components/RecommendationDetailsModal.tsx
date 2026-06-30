@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import type { Anime, Recommendation } from "../types";
 import { getAnimeDetails } from "../api";
+import { getMatchQuality } from "../utils/matchQuality";
 
 interface RecommendationDetailsModalProps {
   isOpen: boolean;
@@ -145,8 +146,8 @@ export const RecommendationDetailsModal: React.FC<RecommendationDetailsModalProp
             </div>
             <div className="modal-meta-item">
               <span className="meta-label">Match Quality</span>
-              <span className={`meta-value badge-highlight badge-${recommendation.match_badge.toLowerCase().replace(' ', '-')}`}>
-                {recommendation.match_badge}
+              <span className={`meta-value badge-highlight badge-${getMatchQuality(recommendation.match_score).toLowerCase().replace(' ', '-')}`}>
+                {getMatchQuality(recommendation.match_score)}
               </span>
             </div>
           </div>

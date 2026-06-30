@@ -1,5 +1,6 @@
 import React from "react";
 import type { Recommendation } from "../types";
+import { getMatchQuality } from "../utils/matchQuality";
 
 interface RecommendationCardProps {
   rec: Recommendation;
@@ -8,6 +9,8 @@ interface RecommendationCardProps {
 
 export const RecommendationCard: React.FC<RecommendationCardProps> = ({ rec, onClick }) => {
   const matchedSeed = rec.explanation.matched_seed ? rec.explanation.matched_seed.title : null;
+  const quality = getMatchQuality(rec.match_score);
+  const badgeClass = `badge-${quality.toLowerCase().replace(" ", "-")}`;
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" || e.key === " ") {
@@ -32,7 +35,7 @@ export const RecommendationCard: React.FC<RecommendationCardProps> = ({ rec, onC
             <span className="card-subtitle" title={rec.title_english}>{rec.title_english}</span>
           )}
         </div>
-        <div className="card-score">{rec.match_score} / 10</div>
+        <div className={`card-score ${badgeClass}`} title={quality}>{rec.match_score} / 10</div>
       </div>
 
       <div className="card-body">

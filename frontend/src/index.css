@@ -1141,6 +1141,34 @@ body {
 .badge-fair-match {
   color: #A78BFA !important; /* Purple */
 }
+.badge-similar-match {
+  color: #3B82F6 !important; /* Blue */
+}
+.badge-discovery-pick {
+  color: #A78BFA !important; /* Purple */
+}
+
+/* Match quality color coding for card score bubbles */
+.recommendation-card .card-score.badge-excellent-match {
+  color: #10B981 !important;
+  background: rgba(16, 185, 129, 0.12) !important;
+  border-color: rgba(16, 185, 129, 0.25) !important;
+}
+.recommendation-card .card-score.badge-good-match {
+  color: #F59E0B !important;
+  background: rgba(245, 158, 11, 0.12) !important;
+  border-color: rgba(245, 158, 11, 0.25) !important;
+}
+.recommendation-card .card-score.badge-similar-match {
+  color: #3B82F6 !important;
+  background: rgba(59, 130, 246, 0.12) !important;
+  border-color: rgba(59, 130, 246, 0.25) !important;
+}
+.recommendation-card .card-score.badge-discovery-pick {
+  color: #A78BFA !important;
+  background: rgba(167, 139, 250, 0.12) !important;
+  border-color: rgba(167, 139, 250, 0.25) !important;
+}
 
 /* Genres formatting */
 .genres-list {
