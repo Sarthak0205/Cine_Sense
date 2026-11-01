@@ -62,23 +62,36 @@ def root():
         "health": "/health"
     }
 
-allowed_origins_env = os.getenv("ALLOWED_ORIGINS")
-if allowed_origins_env:
-    allow_origins = [orig.strip() for orig in allowed_origins_env.split(",") if orig.strip()]
-else:
-    allow_origins = [
+def get_allowed_origins(env_value: str | None = None) -> list[str]:
+    """Parse and return allowed CORS origins, falling back to defaults if unconfigured."""
+    default_origins = [
+        # Production Vercel deployments
+        "https://cine-sense-eight.vercel.app",
+        "https://cine-sense-g2a7.vercel.app",
         # Vite dev
         "http://localhost:5173",
         "http://127.0.0.1:5173",
-
         # Vite preview
         "http://localhost:4173",
         "http://127.0.0.1:4173",
     ]
 
+    raw_env = os.getenv("ALLOWED_ORIGINS") if env_value is None else env_value
+    if not raw_env:
+        return default_origins
+
+    origins = []
+    for raw_origin in raw_env.split(","):
+        cleaned = raw_origin.strip().strip("'\"").rstrip("/")
+        if cleaned and cleaned not in origins:
+            origins.append(cleaned)
+
+    return origins if origins else default_origins
+
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allow_origins,
+    allow_origins=get_allowed_origins(),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
